@@ -9,7 +9,8 @@
     "test": "jest",
     "flow": "flow --include-warnings",
     "lint": "eslint .",
-    "ci": "npm test && npm run lint && npm run flow",
+    "ci-start": "node config/setupCI.js",
+    "ci-stop": "node config/setupCI.js --tearDown",
     "prepare": "patch-package"
   },
   "dependencies": {
