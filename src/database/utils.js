@@ -1,7 +1,5 @@
 /* @flow */
 
-import leftPad from 'left-pad';
-
 import type { ExerciseSchemaType, WorkoutSchemaType } from './types';
 import type { RealmResults } from '../types';
 import { dateToWorkoutId } from '../utils/date';
@@ -18,7 +16,10 @@ export const getSetSchemaId = (
   day: string,
   exerciseKey: string,
   index: number
-) => `${getExerciseSchemaId(day, exerciseKey)}_${leftPad(index, 3, '0')}`;
+) =>
+  `${getExerciseSchemaId(day, exerciseKey)}_${index
+    .toString()
+    .padStart(3, '0')}`;
 
 export const extractExerciseKeyFromDatabase = (id: string) => id.split('_')[1];
 

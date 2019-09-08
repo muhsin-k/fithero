@@ -1,7 +1,5 @@
 /* @flow */
 
-import leftPad from 'left-pad';
-
 import {
   addExercise,
   deleteExercise,
@@ -20,7 +18,7 @@ describe('addExercise', () => {
     sorted: jest.fn(() => {
       const exercise = [
         {
-          id: `${userExerciseIdPrefix}${leftPad(current.toString(), 6, 0)}`,
+          id: `${userExerciseIdPrefix}${current.toString().padStart(6, '0')}`,
           name: 'Existing exercise',
         },
       ];
@@ -36,7 +34,9 @@ describe('addExercise', () => {
       primary: ['Chest'],
     };
 
-    const generated = [...Array(102)].map((_, i) => leftPad(i + 1, 6, 0));
+    const generated = [...Array(102)].map((_, i) =>
+      (i + 1).toString().padStart(6, '0')
+    );
     generated.forEach(g => {
       addExercise(exercise);
       expect(realm.create).toHaveBeenCalledWith(EXERCISE_SCHEMA_NAME, {

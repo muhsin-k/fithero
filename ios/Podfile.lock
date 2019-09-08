@@ -19,50 +19,55 @@ PODS:
   - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
+    - Folly/Default (= 2018.10.22.00)
+    - glog
+  - Folly/Default (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
     - glog
   - glog (0.3.5)
-  - React (0.59.8):
-    - React/Core (= 0.59.8)
-  - React/Core (0.59.8):
-    - yoga (= 0.59.8.React)
-  - React/CxxBridge (0.59.8):
+  - React (0.59.10):
+    - React/Core (= 0.59.10)
+  - React/Core (0.59.10):
+    - yoga (= 0.59.10.React)
+  - React/CxxBridge (0.59.10):
     - Folly (= 2018.10.22.00)
     - React/Core
     - React/cxxreact
     - React/jsiexecutor
-  - React/cxxreact (0.59.8):
+  - React/cxxreact (0.59.10):
     - boost-for-react-native (= 1.63.0)
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/jsinspector
-  - React/DevSupport (0.59.8):
+  - React/DevSupport (0.59.10):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.59.8)
-  - React/jsi (0.59.8):
+  - React/fishhook (0.59.10)
+  - React/jsi (0.59.10):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
-  - React/jsiexecutor (0.59.8):
+  - React/jsiexecutor (0.59.10):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/cxxreact
     - React/jsi
-  - React/jsinspector (0.59.8)
-  - React/RCTAnimation (0.59.8):
+  - React/jsinspector (0.59.10)
+  - React/RCTAnimation (0.59.10):
     - React/Core
-  - React/RCTBlob (0.59.8):
+  - React/RCTBlob (0.59.10):
     - React/Core
-  - React/RCTImage (0.59.8):
+  - React/RCTImage (0.59.10):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.59.8):
+  - React/RCTNetwork (0.59.10):
     - React/Core
-  - React/RCTText (0.59.8):
+  - React/RCTText (0.59.10):
     - React/Core
-  - React/RCTWebSocket (0.59.8):
+  - React/RCTWebSocket (0.59.10):
     - React/Core
     - React/fishhook
     - React/RCTBlob
@@ -82,7 +87,7 @@ PODS:
     - UMFontInterface
   - UMSensorsInterface (1.0.0)
   - UMTaskManagerInterface (1.0.0)
-  - yoga (0.59.8.React)
+  - yoga (0.59.10.React)
 
 DEPENDENCIES:
   - Charts (= 3.3)
@@ -169,14 +174,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
-  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
+  DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   EXConstants: a338ed187829ab25b8817f84cd84eecc13e64fd4
   EXDocumentPicker: c89ba1555a8c4367d31e4a4bcda9825a18e9788e
   EXFileSystem: 18c9980f52e3bd6a28670c17e0d33a9c1584a336
   EXPermissions: ce3e170052df9d496aa51e1c372080cb2508fb16
-  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
-  glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
-  React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
+  Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
+  glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   UMBarCodeScannerInterface: 53fd3cbf24fe5c58f3ba82ac8c27f0373fbf52fa
   UMCameraInterface: d5a2727e76d6b47e3201f863102c055ddbcc6206
@@ -190,7 +195,7 @@ SPEC CHECKSUMS:
   UMReactNativeAdapter: d1ca37ccecbfa95306adeebfa5e1d5514bf3d479
   UMSensorsInterface: 136a828e73e4d69694cdd8d6203a99d38471b90e
   UMTaskManagerInterface: f88793bd35248182e15591e0aa5b045132312be0
-  yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
+  yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
 PODFILE CHECKSUM: 2845272c3d7bc16b37b99440174d4c805cf31692
 

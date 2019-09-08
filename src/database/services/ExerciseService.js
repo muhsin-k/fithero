@@ -1,7 +1,5 @@
 /* @flow */
 
-import leftPad from 'left-pad';
-
 import realm from '../index';
 import type { AddExerciseType, ExerciseSchemaType } from '../types';
 import type { RealmResults } from '../../types';
@@ -22,7 +20,7 @@ const _generateId = () => {
     max = parseInt(exercises[0].id.split(userExerciseIdPrefix)[1], 10) + 1;
   }
   // The user can create a max of 100000 exercises :)
-  return `${userExerciseIdPrefix}${leftPad(max.toString(), 6, 0)}`;
+  return `${userExerciseIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
 export const addExercise = (exercise: AddExerciseType) => {
