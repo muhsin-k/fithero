@@ -52,6 +52,7 @@
     "flow-bin": "0.92.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.0",
+    "moment-timezone": "^0.5.26",
     "patch-package": "^6.0.4",
     "postinstall-prepare": "^1.0.1",
     "react-dom": "16.6.3",
