@@ -8,7 +8,10 @@ import HomeScreen from '../HomeScreen';
 import { Provider } from 'react-redux';
 import store from '../../../redux/configureStore';
 
-jest.mock('react-navigation', () => ({ withNavigation: c => c }));
+jest.mock('react-navigation', () => ({
+  NavigationEvents: () => null,
+  withNavigation: c => c,
+}));
 
 const dateString = '2018-05-22T00:00:00.000Z';
 const dateStringLater = '2018-05-23T00:00:00.000Z';

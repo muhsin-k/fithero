@@ -85,3 +85,22 @@ export const mockRealmWorkout = {
   date: dates[0].date,
   exercises: new RealmArray(),
 };
+
+export const mockCustomExercise = {
+  id: `20180504_user-exercise--000001`,
+  name: 'Custom exercise',
+  sets: [
+    {
+      id: `20180504_user-exercise--000001`,
+      reps: 12,
+      weight: 50,
+      date: dates[0].date,
+      type: 'user-exercise--000001',
+    },
+  ],
+  date: dates[0].date,
+  type: 'user-exercise--000001',
+  weight_unit: 'metric',
+  sort: 2,
+  isValid: () => true,
+};

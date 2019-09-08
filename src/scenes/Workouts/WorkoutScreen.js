@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { FAB } from 'react-native-paper';
 
 import WorkoutList from '../../components/WorkoutList';
 import {
@@ -20,9 +19,11 @@ import i18n from '../../utils/i18n';
 import HeaderOverflowButton from '../../components/HeaderOverflowButton';
 import type { ThemeType } from '../../utils/theme/withTheme';
 import { getDefaultNavigationOptions } from '../../utils/navigation';
+import { shareWorkout } from '../../utils/share';
+import FABSnackbar from '../../components/FABSnackbar';
 
 type NavigationObjectType = {
-  navigation: NavigationType<{ day: string, addWorkoutComment: () => void }>,
+  navigation: NavigationType<{ day: string, handleToolbarMenu: () => void }>,
 };
 
 type NavigationOptions = NavigationObjectType & {
@@ -33,7 +34,11 @@ type NavigationOptions = NavigationObjectType & {
 
 type Props = NavigationObjectType & {};
 
-class WorkoutScreen extends React.Component<Props> {
+type State = {
+  snackbarVisible: boolean,
+};
+
+class WorkoutScreen extends React.Component<Props, State> {
   static navigationOptions = ({
     navigation,
     screenProps,
@@ -44,28 +49,60 @@ class WorkoutScreen extends React.Component<Props> {
       title: getDatePrettyFormat(navigation.state.params.day, getToday(), true),
       headerRight: (
         <HeaderOverflowButton
-          actions={[i18n.t('comment_workout')]}
-          onPress={params.addWorkoutComment}
+          actions={[i18n.t('comment_workout'), i18n.t('share_workout')]}
+          onPress={params.handleToolbarMenu}
           last
         />
       ),
     };
   };
 
+  state = {
+    snackbarVisible: false,
+  };
+
   componentDidMount() {
     this.props.navigation.setParams({
-      addWorkoutComment: this._addWorkoutComment,
+      handleToolbarMenu: this._handleToolbarMenu,
     });
   }
+
+  _handleToolbarMenu = (index: number) => {
+    switch (index) {
+      case 0:
+        this._addWorkoutComment();
+        break;
+      case 1:
+        this._shareWorkout();
+        break;
+      default:
+        break;
+    }
+  };
 
   _addWorkoutComment = () => {
     const day = this.props.navigation.state.params.day;
     this.props.navigation.navigate('Comments', { day });
   };
 
+  _shareWorkout = async () => {
+    const day = dateToWorkoutId(this.props.navigation.state.params.day);
+    const workouts = getWorkoutById(day);
+    const workout = workouts.length > 0 ? workouts[0] : null;
+    if (workout) {
+      await shareWorkout(workout);
+    } else {
+      this.setState({ snackbarVisible: true });
+    }
+  };
+
   _onAddExercises = () => {
     const day = this.props.navigation.state.params.day;
     this.props.navigation.navigate('Exercises', { day });
+  };
+
+  _onDismissSnackbar = () => {
+    this.setState({ snackbarVisible: false });
   };
 
   _onExercisePress = (exerciseKey: string, customExerciseName?: string) => {
@@ -105,7 +142,13 @@ class WorkoutScreen extends React.Component<Props> {
             />
           )}
         />
-        <FAB icon="add" onPress={this._onAddExercises} style={styles.fab} />
+        <FABSnackbar
+          fabIcon="add"
+          onDismiss={this._onDismissSnackbar}
+          show={this.state.snackbarVisible}
+          snackbarText={i18n.t('share_workout__empty')}
+          onFabPress={this._onAddExercises}
+        />
       </Screen>
     );
   }
@@ -117,11 +160,6 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingHorizontal: 4,
     paddingBottom: 56 + 32, // Taking FAB into account
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 16,
-    right: 16,
   },
 });
 

@@ -176,3 +176,12 @@ export const getTimeAgo = (
     .subtract(value, unit)
     .toDate();
 };
+
+export const getShareWorkoutPrettyDate = (dateString: string) => {
+  const now = getToday();
+  const date = moment(dateString).startOf('day');
+
+  return date.format(
+    now.isSame(date, 'year') ? 'dddd, MMMM D' : 'dddd, MMMM D, YYYY'
+  );
+};

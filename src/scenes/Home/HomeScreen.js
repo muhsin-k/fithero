@@ -2,13 +2,13 @@
 
 import React, { Component } from 'react';
 import {
+  Animated,
   InteractionManager,
   Platform,
   StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
-import { FAB } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import Screen from '../../components/Screen';
@@ -20,7 +20,10 @@ import {
   getSafeTimezoneTime,
   getToday,
 } from '../../utils/date';
-import { getWorkoutsByRange } from '../../database/services/WorkoutService';
+import {
+  getWorkoutById,
+  getWorkoutsByRange,
+} from '../../database/services/WorkoutService';
 import WorkoutList from '../../components/WorkoutList';
 import type { WorkoutSchemaType } from '../../database/types';
 import HeaderIconButton from '../../components/HeaderIconButton';
@@ -34,10 +37,12 @@ import i18n from '../../utils/i18n';
 import WorkoutComments from '../../components/WorkoutComments';
 import { hideSplashScreen } from '../../native/RNSplashScreen';
 import { getDefaultNavigationOptions } from '../../utils/navigation';
+import { shareWorkout } from '../../utils/share';
+import FABSnackbar from '../../components/FABSnackbar';
 
 type NavigationObjectType = {
   navigation: NavigationType<{
-    addWorkoutComment: () => void,
+    handleToolbarMenu: () => void,
   }>,
 };
 
@@ -54,6 +59,8 @@ type Props = NavigationObjectType & {
 
 type State = {
   selectedDay: string,
+  snackbarVisible: boolean,
+  fabAnimatedValue: Animated.Value,
 };
 
 class HomeScreen extends Component<Props, State> {
@@ -73,8 +80,8 @@ class HomeScreen extends Component<Props, State> {
         <View style={styles.headerButtons}>
           <HeaderIconButton icon="date-range" onPress={navigateToCalendar} />
           <HeaderOverflowButton
-            actions={[i18n.t('comment_workout')]}
-            onPress={params.addWorkoutComment}
+            actions={[i18n.t('comment_workout'), i18n.t('share_workout')]}
+            onPress={params.handleToolbarMenu}
             last
           />
         </View>
@@ -86,12 +93,14 @@ class HomeScreen extends Component<Props, State> {
     super(props);
     this.state = {
       selectedDay: dateToWorkoutId(getToday()),
+      snackbarVisible: false,
+      fabAnimatedValue: new Animated.Value(0),
     };
   }
 
   componentDidMount() {
     this.props.navigation.setParams({
-      addWorkoutComment: this._addWorkoutComment,
+      handleToolbarMenu: this._handleToolbarMenu,
     });
 
     InteractionManager.runAfterInteractions(() => {
@@ -102,9 +111,32 @@ class HomeScreen extends Component<Props, State> {
     });
   }
 
+  _handleToolbarMenu = (index: number) => {
+    switch (index) {
+      case 0:
+        this._addWorkoutComment();
+        break;
+      case 1:
+        this._shareWorkout();
+        break;
+      default:
+        break;
+    }
+  };
+
   _addWorkoutComment = () => {
     const { selectedDay } = this.state;
     this.props.navigation.navigate('Comments', { day: selectedDay });
+  };
+
+  _shareWorkout = async () => {
+    const workouts = getWorkoutById(this.state.selectedDay);
+    const workout = workouts.length > 0 ? workouts[0] : null;
+    if (workout) {
+      await shareWorkout(workout);
+    } else {
+      this.setState({ snackbarVisible: true });
+    }
   };
 
   _onAddExercises = () => {
@@ -149,6 +181,10 @@ class HomeScreen extends Component<Props, State> {
     );
   };
 
+  _onDismissSnackbar = () => {
+    this.setState({ snackbarVisible: false });
+  };
+
   render() {
     const { selectedDay } = this.state;
     const today = getToday();
@@ -182,7 +218,13 @@ class HomeScreen extends Component<Props, State> {
             />
           )}
         />
-        <FAB icon="add" onPress={this._onAddExercises} style={styles.fab} />
+        <FABSnackbar
+          fabIcon="add"
+          onDismiss={this._onDismissSnackbar}
+          show={this.state.snackbarVisible}
+          snackbarText={i18n.t('share_workout__empty')}
+          onFabPress={this._onAddExercises}
+        />
       </Screen>
     );
   }
@@ -192,11 +234,6 @@ const styles = StyleSheet.create({
   list: {
     flexGrow: 1,
     paddingBottom: 56 + 32, // Taking FAB into account
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 16,
-    right: 16,
   },
   headerButtons: {
     flexDirection: 'row',
