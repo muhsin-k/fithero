@@ -1,4 +1,4 @@
-# <img alt="FitHero" src="assets/logo.png" width="300" height="92" />
+<img alt="FitHero" src="assets/logo.png" width="300" height="92" />
 
 You focus on your training. **FitHero** will focus on the rest. Built with [React Native](https://github.com/facebook/react-native).
 
@@ -9,6 +9,10 @@ You focus on your training. **FitHero** will focus on the rest. Built with [Reac
 <a href="https://apps.apple.com/us/app/fithero-gym-workout-tracker/id1465707550">
   <img alt="Download on the App Store" title="App Store" src="assets/apple-store.png" height="40">
 </a>
+
+---
+
+[![Actions Status](https://github.com/ferrannp/fithero/workflows/CI/badge.svg)](https://github.com/ferrannp/fithero/actions)
 
 ## Features
 
