@@ -64,3 +64,4 @@ coverage/
 
 # Others
 secrets.js
+android/**/generated

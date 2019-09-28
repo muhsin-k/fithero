@@ -32,7 +32,7 @@ class DataProvider<T, A> extends React.Component<Props<T, A>, State<*>> {
     this._startListening(this.props);
   }
 
-  componentWillReceiveProps(nextProps: Props<T, A>) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props<T, A>) {
     if (!isEqual(this.props.args, nextProps.args)) {
       const { args, query } = nextProps;
 

@@ -3,8 +3,6 @@ package com.fnp.fithero;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.facebook.react.bridge.ReadableNativeArray;
-import com.facebook.react.bridge.ReadableNativeMap;
 import com.github.wuxudong.rncharts.MPAndroidChartPackage;
 import is.uncommon.rn.widgets.TabbedViewPagerAndroidPackage;
 
@@ -82,8 +80,6 @@ public class MainApplication extends Application implements ReactApplication, Sh
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    ReadableNativeArray.setUseNativeAccessor(true);
-    ReadableNativeMap.setUseNativeAccessor(true);
   }
 
   @Override

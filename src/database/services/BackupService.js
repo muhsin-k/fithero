@@ -15,8 +15,7 @@ import {
   setMomentFirstDayOfTheWeek,
 } from '../../utils/date';
 import { deserializeExercises, deserializeWorkouts } from '../utils';
-import { name as packageName } from '../../../package.json';
-import { Settings } from '../../utils/constants';
+import { PACKAGE_NAME, Settings } from '../../utils/constants';
 import type { SettingsType } from '../../redux/modules/settings';
 import { Platform, StatusBar } from 'react-native';
 
@@ -25,7 +24,7 @@ export const backupDatabase = async () => {
   const asyncStorageData = await AsyncStorage.multiGet(keys);
   let settings = {};
   asyncStorageData.forEach(([key, value]) => {
-    if (key.includes(packageName)) {
+    if (key.includes(PACKAGE_NAME)) {
       settings[key] = value;
     }
   });

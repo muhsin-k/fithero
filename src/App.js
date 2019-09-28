@@ -29,6 +29,8 @@ if (global.__DEV__) {
     'Async Storage has been extracted',
     // Comes from react-native-tabbed-view-pager-android
     'Accessing view manager configs directly off UIManager',
+    // Comes from some libraries too
+    'componentWillReceiveProps is deprecated',
   ]);
 }
 

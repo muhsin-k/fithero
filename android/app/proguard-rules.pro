@@ -9,13 +9,6 @@
 
 # Add any project specific keep options here:
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
 # React Native
 
 # Keep our interfaces so they can be used by other ProGuard rules.
@@ -63,24 +56,3 @@
 
 # realm
 -keep class io.realm.react.util.SSLHelper
-
-# Expo Universal Modules
-
--keepclassmembers class * {
-  @org.unimodules.core.interfaces.ExpoProp *;
-}
--keepclassmembers class * {
-  @org.unimodules.core.interfaces.ExpoMethod *;
-}
-
--keepclassmembers class * {
-  @**.expo.core.interfaces.ExpoProp *;
-}
--keepclassmembers class * {
-  @**.expo.core.interfaces.ExpoMethod *;
-}
-
--keep @**.expo.core.interfaces.DoNotStrip class *
--keepclassmembers class * {
-  @**.expo.core.interfaces.DoNotStrip *;
-}
