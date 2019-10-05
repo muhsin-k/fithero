@@ -9,10 +9,9 @@
     "test": "jest",
     "flow": "flow --include-warnings",
     "lint": "eslint .",
-    "ci-start": "node config/setupCI.js",
+    "ci-start": "node config/setupCI.js && cd ios && pod install",
     "ci-stop": "node config/setupCI.js --tearDown",
-    "prepare": "patch-package",
-    "postinstall": "cd ios && pod install"
+    "prepare": "patch-package"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.2.1",
