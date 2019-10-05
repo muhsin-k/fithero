@@ -19,7 +19,7 @@ export type NavigationType<T> = {
     params: T,
   },
   addListener: (
-    type: 'willBlur',
+    type: 'willBlur' | 'didFocus',
     () => void
   ) => {
     remove: () => void,
