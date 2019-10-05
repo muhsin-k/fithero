@@ -4,19 +4,23 @@ import React, { useCallback } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
-import useRealmResultsHook from '../../components/useRealmResultsHook';
-import { getExercisesByType } from '../../database/services/WorkoutExerciseService';
+import useRealmResultsHook from '../../../components/useRealmResultsHook';
+import { getExercisesByType } from '../../../database/services/WorkoutExerciseService';
 import type {
   WorkoutExerciseSchemaType,
   WorkoutSetSchemaType,
-} from '../../database/types';
+} from '../../../database/types';
 import { connect } from 'react-redux';
 import ExerciseHistoryItem from './ExerciseHistoryItem';
-import { getMaxSetByType } from '../../database/services/WorkoutSetService';
-import type { DefaultUnitSystemType } from '../../redux/modules/settings';
-import type { NavigationType } from '../../types';
-import { dateToString, getToday } from '../../utils/date';
-import i18n from '../../utils/i18n';
+import {
+  getMaxRepByType,
+  getMaxSetByType,
+} from '../../../database/services/WorkoutSetService';
+import type { DefaultUnitSystemType } from '../../../redux/modules/settings';
+import type { NavigationType } from '../../../types';
+import { dateToString, getToday } from '../../../utils/date';
+import i18n from '../../../utils/i18n';
+import PersonalRecords from './PersonalRecords';
 
 type Props = {
   type: 'string',
@@ -34,6 +38,9 @@ const ExerciseHistory = (props: Props) => {
   );
   const { data: maxSet } = useRealmResultsHook<WorkoutSetSchemaType>(
     useCallback(() => getMaxSetByType(type), [type])
+  );
+  const { data: maxRep } = useRealmResultsHook<WorkoutSetSchemaType>(
+    useCallback(() => getMaxRepByType(type), [type])
   );
 
   const maxSetId = maxSet.length > 0 ? maxSet[0].id : null;
@@ -56,6 +63,15 @@ const ExerciseHistory = (props: Props) => {
       )}
       extraData={timestamp}
       ListEmptyComponent={renderEmptyView}
+      ListHeaderComponent={
+        maxSetId ? (
+          <PersonalRecords
+            unit={props.unit}
+            maxSet={maxSet[0]}
+            maxRep={maxRep[0]}
+          />
+        ) : null
+      }
     />
   );
 };

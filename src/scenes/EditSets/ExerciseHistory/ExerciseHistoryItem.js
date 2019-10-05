@@ -4,13 +4,13 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { getDatePrettyFormat } from '../../utils/date';
-import i18n from '../../utils/i18n';
-import { toLb, toTwoDecimals } from '../../utils/metrics';
-import withTheme from '../../utils/theme/withTheme';
-import type { WorkoutExerciseSchemaType } from '../../database/types';
-import type { ThemeType } from '../../utils/theme/withTheme';
-import type { DefaultUnitSystemType } from '../../redux/modules/settings';
+import { getDatePrettyFormat } from '../../../utils/date';
+import i18n from '../../../utils/i18n';
+import { toLb, toTwoDecimals } from '../../../utils/metrics';
+import withTheme from '../../../utils/theme/withTheme';
+import type { WorkoutExerciseSchemaType } from '../../../database/types';
+import type { ThemeType } from '../../../utils/theme/withTheme';
+import type { DefaultUnitSystemType } from '../../../redux/modules/settings';
 
 type Props = {
   exercise: WorkoutExerciseSchemaType,

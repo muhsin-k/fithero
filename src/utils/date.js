@@ -185,3 +185,11 @@ export const getShareWorkoutPrettyDate = (dateString: string) => {
     now.isSame(date, 'year') ? 'dddd, MMMM D' : 'dddd, MMMM D, YYYY'
   );
 };
+
+export const isToday = (date: Date | string) => {
+  return moment(date).isSame(moment(getToday()), 'day');
+};
+
+export const isSameYear = (date: Date | string) => {
+  return moment(date).isSame(moment(getToday()), 'year');
+};
