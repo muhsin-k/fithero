@@ -107,7 +107,6 @@ class CommentsScreen extends React.Component<Props, State> {
         <TextInput
           autoFocus
           multiline
-          underlineColorAndroid="transparent"
           selectionColor={colors.textSelection}
           style={[{ color: colors.text }, styles.textArea]}
           placeholderTextColor={colors.placeholder}

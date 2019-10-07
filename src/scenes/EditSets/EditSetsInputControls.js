@@ -58,7 +58,6 @@ class EditSetsInputControls extends React.Component<Props> {
           <TextInput
             value={input}
             onChangeText={onChangeText}
-            underlineColorAndroid="transparent"
             selectionColor={theme.colors.textSelection}
             style={[
               {
