@@ -1,11 +1,14 @@
 /* @flow */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 
 import useRealmResultsHook from '../../../components/useRealmResultsHook';
-import { getExercisesByType } from '../../../database/services/WorkoutExerciseService';
+import {
+  getExercisesByType,
+  getWorkoutExerciseById,
+} from '../../../database/services/WorkoutExerciseService';
 import type {
   WorkoutExerciseSchemaType,
   WorkoutSetSchemaType,
@@ -21,10 +24,12 @@ import type { NavigationType } from '../../../types';
 import { dateToString, getToday } from '../../../utils/date';
 import i18n from '../../../utils/i18n';
 import PersonalRecords from './PersonalRecords';
+import { getWeightUnit } from '../../../utils/metrics';
+import { getExerciseSchemaIdFromSet } from '../../../database/utils';
 
 type Props = {
   type: 'string',
-  unit: DefaultUnitSystemType,
+  defaultUnitSystem: DefaultUnitSystemType,
   navigation: NavigationType<{
     exerciseKey: string,
   }>,
@@ -33,18 +38,55 @@ type Props = {
 const ExerciseHistory = (props: Props) => {
   const type = props.navigation.state.params.exerciseKey;
 
+  const [maxSetUnit, setMaxSetUnit] = useState(props.defaultUnitSystem);
+  const [maxRepUnit, setMaxRepUnit] = useState(props.defaultUnitSystem);
+
   const { data, timestamp } = useRealmResultsHook<WorkoutExerciseSchemaType>(
     useCallback(() => getExercisesByType(type), [type])
   );
-  const { data: maxSet } = useRealmResultsHook<WorkoutSetSchemaType>(
+
+  const {
+    data: maxSets,
+    timestamp: maxSetHasChanged,
+  } = useRealmResultsHook<WorkoutSetSchemaType>(
     useCallback(() => getMaxSetByType(type), [type])
   );
-  const { data: maxRep } = useRealmResultsHook<WorkoutSetSchemaType>(
+
+  const {
+    data: maxReps,
+    timestamp: maxRepHasChanged,
+  } = useRealmResultsHook<WorkoutSetSchemaType>(
     useCallback(() => getMaxRepByType(type), [type])
   );
 
-  const maxSetId = maxSet.length > 0 ? maxSet[0].id : null;
+  // This might not be necessary in the future if we add weight_unit to each Set
+  useEffect(() => {
+    if (maxSets.length > 0) {
+      const data = getWorkoutExerciseById(
+        getExerciseSchemaIdFromSet(maxSets[0].id)
+      );
+      if (data.length > 0) setMaxSetUnit(data[0].weight_unit);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maxSetHasChanged, props.defaultUnitSystem]);
+
+  // This might not be necessary in the future if we add weight_unit to each Set
+  useEffect(() => {
+    if (maxReps.length > 0) {
+      const data = getWorkoutExerciseById(
+        getExerciseSchemaIdFromSet(maxReps[0].id)
+      );
+      if (data.length > 0) setMaxRepUnit(data[0].weight_unit);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maxRepHasChanged, props.defaultUnitSystem]);
+
   const todayString = dateToString(getToday());
+  const maxSetId = maxSets.length > 0 ? maxSets[0].id : null;
+  const maxRepId = maxReps.length > 0 ? maxReps[0].id : null;
+
+  const maxSet = maxSetId ? maxSets[0] : null;
+  const maxRep = maxRepId ? maxReps[0] : null;
 
   return (
     <FlatList
@@ -55,8 +97,9 @@ const ExerciseHistory = (props: Props) => {
         <Card style={styles.card}>
           <ExerciseHistoryItem
             exercise={item}
-            unit={props.unit}
+            unit={getWeightUnit(item, props.defaultUnitSystem)}
             maxSetId={maxSetId}
+            maxRepId={maxRepId}
             todayString={todayString}
           />
         </Card>
@@ -64,11 +107,12 @@ const ExerciseHistory = (props: Props) => {
       extraData={timestamp}
       ListEmptyComponent={renderEmptyView}
       ListHeaderComponent={
-        maxSetId ? (
+        maxSet && maxRep ? (
           <PersonalRecords
-            unit={props.unit}
-            maxSet={maxSet[0]}
-            maxRep={maxRep[0]}
+            maxSet={maxSet}
+            maxRep={maxRep}
+            maxSetUnit={maxSetUnit}
+            maxRepUnit={maxRepUnit}
           />
         ) : null
       }
@@ -100,7 +144,7 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => ({
-    unit: state.settings.defaultUnitSystem,
+    defaultUnitSystem: state.settings.defaultUnitSystem,
   }),
   null
 )(ExerciseHistory);

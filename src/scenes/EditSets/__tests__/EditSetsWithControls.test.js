@@ -24,6 +24,7 @@ jest.mock('../../../database/services/WorkoutSetService', () => ({
   getLastSetByType: jest.fn(() => []),
   updateSet: jest.fn(),
   getMaxSetByType: jest.fn(),
+  getMaxRepByType: jest.fn(),
 }));
 
 jest.mock('../../../database/services/WorkoutExerciseService');

@@ -11,20 +11,36 @@ import type { WorkoutSetSchemaType } from '../../../database/types';
 import type { ThemeType } from '../../../utils/theme/withTheme';
 
 type Props = {
-  unit: DefaultUnitSystemType,
   maxSet: WorkoutSetSchemaType,
   maxRep: WorkoutSetSchemaType,
+  maxSetUnit: DefaultUnitSystemType,
+  maxRepUnit: DefaultUnitSystemType,
   theme: ThemeType,
 };
 
-const PersonalRecords = ({ maxSet, maxRep, unit, theme }: Props) => {
+const PersonalRecords = ({
+  maxSet,
+  maxRep,
+  maxSetUnit,
+  maxRepUnit,
+  theme,
+}: Props) => {
   const { colors } = theme;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{i18n.t('personal_records')}</Text>
       <View style={styles.recordsContainer}>
-        <PersonalRecordItem set={maxSet} unit={unit} colors={colors} />
-        <PersonalRecordItem set={maxRep} unit={unit} colors={colors} last />
+        <PersonalRecordItem
+          set={maxSet}
+          unit={maxSetUnit}
+          trophyColor={colors.trophy}
+        />
+        <PersonalRecordItem
+          set={maxRep}
+          unit={maxRepUnit}
+          trophyColor={colors.trophyReps}
+          last
+        />
       </View>
       <Text>{i18n.t('history')}</Text>
     </View>

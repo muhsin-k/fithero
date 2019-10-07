@@ -26,6 +26,7 @@ const ThemeColors: ThemeColorsType = {
   toolbar: primary,
   toolbarTint: Colors.white,
   trophy: accent,
+  trophyReps: '#FFE082',
 };
 
 const Theme: ThemeType = {

@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { render } from 'react-native-testing-library';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import WorkoutItem from '../WorkoutItem';
 import {
@@ -17,6 +18,7 @@ import type { DefaultUnitSystemType } from '../../redux/modules/settings';
 
 jest.mock('../../database/services/WorkoutSetService', () => ({
   getMaxSetByType: jest.fn(() => new MockRealmArray()),
+  getMaxRepByType: jest.fn(() => new MockRealmArray()),
 }));
 
 describe('WorkoutItem', () => {
@@ -26,12 +28,13 @@ describe('WorkoutItem', () => {
     weightSystem?: DefaultUnitSystemType
   ) =>
     render(
-      <Component
-        defaultUnitSystem={weightSystem || 'metric'}
-        exercise={mockExercise}
-        onPressItem={jest.fn()}
-        theme={theme}
-      />
+      <PaperProvider theme={theme}>
+        <Component
+          defaultUnitSystem={weightSystem || 'metric'}
+          exercise={mockExercise}
+          onPressItem={jest.fn()}
+        />
+      </PaperProvider>
     );
 
   it('renders using kg vs lb', () => {

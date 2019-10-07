@@ -14,7 +14,6 @@ describe('EditSetItem', () => {
     TestRenderer.create(
       <EditSetItem
         isSelected={false}
-        isMaxSet={false}
         onPressItem={jest.fn()}
         index={0}
         set={{
@@ -26,6 +25,7 @@ describe('EditSetItem', () => {
         }}
         theme={theme}
         unit="metric"
+        maxSetType={null}
         {...props}
       />
     ).root;
@@ -42,11 +42,12 @@ describe('EditSetItem', () => {
 
   it('shows a trophy if set is maxSetId', () => {
     expect(
-      getWrapper({ isMaxSet: false }).findByType(Icon).props.style
+      getWrapper({ maxSetType: null }).findByType(Icon).props.style
     ).toContainEqual({ opacity: 0 });
 
     expect(
-      getWrapper({ isMaxSet: true }).findByType(Icon).props.style
+      // $FlowFixMe
+      getWrapper({ maxSetType: 'maxSet' }).findByType(Icon).props.style
     ).not.toContainEqual({ opacity: 0 });
   });
 });

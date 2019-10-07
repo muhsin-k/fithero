@@ -13,6 +13,19 @@ index 28dff89..20c4e50 100644
            ]}
            pointerEvents={
              keyboardHidesNavigationBar && this.state.keyboard ? 'none' : 'auto'
+diff --git a/node_modules/react-native-paper/src/components/Button.js b/node_modules/react-native-paper/src/components/Button.js
+index 6625fab..bee2a56 100644
+--- a/node_modules/react-native-paper/src/components/Button.js
++++ b/node_modules/react-native-paper/src/components/Button.js
+@@ -244,7 +244,7 @@ class Button extends React.Component<Props, State> {
+           accessibilityTraits={disabled ? ['button', 'disabled'] : 'button'}
+           accessibilityComponentType="button"
+           accessibilityRole="button"
+-          accessibilityStates={disabled ? ['disabled'] : undefined}
++          accessibilityStates={disabled ? ['disabled'] : []}
+           disabled={disabled}
+           rippleColor={rippleColor}
+           style={touchableStyle}
 diff --git a/node_modules/react-native-paper/src/components/Card/Card.js b/node_modules/react-native-paper/src/components/Card/Card.js
 index 6789ad9..a1c156c 100644
 --- a/node_modules/react-native-paper/src/components/Card/Card.js

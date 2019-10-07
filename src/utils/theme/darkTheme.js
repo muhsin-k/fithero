@@ -27,6 +27,7 @@ const ThemeColors: ThemeColorsType = {
   toolbar: '#121212',
   toolbarTint: Colors.white,
   trophy: accent,
+  trophyReps: '#FFE082',
 };
 
 const DarkTheme: ThemeType = {

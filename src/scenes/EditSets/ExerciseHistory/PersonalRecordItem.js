@@ -3,6 +3,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Card, Text } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import i18n from '../../../utils/i18n';
 import { formatDate, isSameYear, isToday } from '../../../utils/date';
@@ -15,11 +16,12 @@ import type { DefaultUnitSystemType } from '../../../redux/modules/settings';
 type Props = {|
   set: WorkoutSetSchemaType,
   theme: ThemeType,
+  trophyColor: string,
   unit: DefaultUnitSystemType,
   last?: boolean,
 |};
 
-const PersonalRecordItem = ({ theme, set, unit, last }: Props) => {
+const PersonalRecordItem = ({ theme, set, unit, trophyColor, last }: Props) => {
   const { colors } = theme;
   const unitText =
     unit === 'metric'
@@ -30,11 +32,14 @@ const PersonalRecordItem = ({ theme, set, unit, last }: Props) => {
   return (
     <Card style={[styles.card, !last && styles.cardSeparator]}>
       <View>
-        <Text style={styles.recordDate}>
-          {isToday(set.date)
-            ? i18n.t('today')
-            : formatDate(set.date, isSameYear(set.date) ? 'MMM D' : 'YYYY')}
-        </Text>
+        <View style={styles.row}>
+          <Text style={styles.recordDate}>
+            {isToday(set.date)
+              ? i18n.t('today')
+              : formatDate(set.date, isSameYear(set.date) ? 'MMM D' : 'YYYY')}
+          </Text>
+          <Icon name="trophy" size={24} color={trophyColor} />
+        </View>
         <Text style={[styles.singleNumber, { color: colors.text }]}>
           {toTwoDecimals(unit === 'metric' ? set.weight : toLb(set.weight))}{' '}
           <Text style={[styles.unit, { color: colors.secondaryText }]}>
@@ -59,6 +64,10 @@ const styles = StyleSheet.create({
   },
   cardSeparator: {
     marginRight: 8,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   recordDate: {
     marginBottom: 12,

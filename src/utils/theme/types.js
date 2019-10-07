@@ -18,4 +18,5 @@ export type ThemeColorsType = {|
   +toolbar: string,
   +toolbarTint: string,
   +trophy: string,
+  +trophyReps: string,
 |};

@@ -7,7 +7,7 @@ type ResultType<T> = {
   timestamp: number,
 };
 
-type QueryType<T> = () => {
+type QueryType<T> = () => ?{
   addListener: ((Array<T>) => void) => void,
   removeAllListeners: () => void,
 };
@@ -15,12 +15,20 @@ type QueryType<T> = () => {
 export default function useRealmResultsHook<T>(
   query: QueryType<T>
 ): ResultType<T> {
-  const [data, setData] = useState({
-    data: query(),
-    timestamp: Date.now(),
+  const [data, setData] = useState(() => {
+    const dataQuery = query();
+    return {
+      data: !dataQuery || !dataQuery.addListener ? [] : dataQuery,
+      timestamp: Date.now(),
+    };
   });
 
   useEffect(() => {
+    const dataQuery = query();
+    if (!dataQuery || !dataQuery.addListener) {
+      return;
+    }
+
     function handleChange(newData: Array<T>) {
       setData({
         data: newData,
@@ -31,7 +39,6 @@ export default function useRealmResultsHook<T>(
       });
     }
 
-    const dataQuery = query();
     dataQuery.addListener(handleChange);
     return () => {
       dataQuery.removeAllListeners();

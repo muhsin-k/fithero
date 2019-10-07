@@ -14,7 +14,7 @@ import type { DefaultUnitSystemType } from '../../redux/modules/settings';
 
 type Props = {
   isSelected: boolean,
-  isMaxSet: boolean,
+  maxSetType: 'maxSet' | 'maxRep' | null,
   onPressItem: (setId: string) => void,
   index: number,
   set: WorkoutSetSchemaType,
@@ -28,7 +28,7 @@ class EditSetItem extends React.PureComponent<Props> {
   };
 
   render() {
-    const { index, isSelected, isMaxSet, set, theme, unit } = this.props;
+    const { index, isSelected, maxSetType, set, theme, unit } = this.props;
 
     return (
       <TouchableWithoutFeedback onPress={this._onPressItem}>
@@ -43,8 +43,12 @@ class EditSetItem extends React.PureComponent<Props> {
             <Icon
               name="trophy"
               size={24}
-              color={theme.colors.trophy}
-              style={[styles.icon, !isMaxSet && styles.notMax]}
+              color={
+                maxSetType === 'maxRep'
+                  ? theme.colors.trophyReps
+                  : theme.colors.trophy
+              }
+              style={[styles.icon, !maxSetType && styles.notMax]}
             />
           </View>
           <Text style={[styles.text, styles.weight]}>

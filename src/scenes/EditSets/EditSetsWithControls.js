@@ -1,8 +1,8 @@
 /* @flow */
 
 import * as React from 'react';
-import { FlatList, Keyboard, StyleSheet, View } from 'react-native';
-import { Card, Divider } from 'react-native-paper';
+import { Keyboard, StyleSheet, View } from 'react-native';
+import { Card } from 'react-native-paper';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
 
 import type {
@@ -11,7 +11,6 @@ import type {
 } from '../../database/types';
 import EditSetsInputControls from './EditSetsInputControls';
 import i18n from '../../utils/i18n';
-import EditSetItem from './EditSetItem';
 import EditSetActionButtons from './EditSetActionButtons';
 import {
   extractSetIndexFromDatabase,
@@ -22,13 +21,10 @@ import {
   addSet,
   deleteSet,
   getLastSetByType,
-  getMaxSetByType,
   updateSet,
 } from '../../database/services/WorkoutSetService';
 import { addExercise } from '../../database/services/WorkoutExerciseService';
 import { toDate } from '../../utils/date';
-import DataProvider from '../../components/DataProvider';
-import type { RealmResults } from '../../types';
 import {
   getWeight,
   getWeightUnit,
@@ -36,6 +32,7 @@ import {
   toTwoDecimals,
 } from '../../utils/metrics';
 import type { DefaultUnitSystemType } from '../../redux/modules/settings';
+import EditSetsList from './EditSetsList';
 
 type Props = {
   day: string,
@@ -253,28 +250,6 @@ export class EditSetsWithControls extends React.Component<Props, State> {
     this.setState({ selectedId: '' });
   };
 
-  _renderItem = ({ item, index }, maxSetId) => {
-    const { defaultUnitSystem, exercise } = this.props;
-
-    const unit =
-      exercise && exercise.weight_unit
-        ? exercise.weight_unit
-        : defaultUnitSystem;
-
-    return (
-      <EditSetItem
-        set={item}
-        index={index + 1}
-        isSelected={this.state.selectedId === item.id}
-        isMaxSet={maxSetId === item.id}
-        onPressItem={this._onPressItem}
-        unit={unit}
-      />
-    );
-  };
-
-  _renderDivider = () => <Divider />;
-
   render() {
     const { defaultUnitSystem, exercise } = this.props;
     const { reps, selectedId, weight } = this.state;
@@ -325,24 +300,11 @@ export class EditSetsWithControls extends React.Component<Props, State> {
               onDeleteSet={this._onDeleteSet}
             />
           </Card>
-          <DataProvider
-            query={getMaxSetByType}
-            args={[this.props.exerciseKey]}
-            parse={(sets: RealmResults<WorkoutSetSchemaType>) =>
-              sets.length > 0 ? sets[0].id : null
-            }
-            render={(maxSetId: string) => (
-              <FlatList
-                contentContainerStyle={styles.list}
-                // It's possible that we delete the whole exercise so this access to .sets would be invalid
-                data={exercise && exercise.isValid() ? exercise.sets : []}
-                keyExtractor={this._keyExtractor}
-                renderItem={propsData => this._renderItem(propsData, maxSetId)}
-                extraData={[this.state.selectedId]}
-                keyboardShouldPersistTaps="always"
-                ItemSeparatorComponent={this._renderDivider}
-              />
-            )}
+          <EditSetsList
+            exercise={exercise}
+            unit={getWeightUnit(exercise, defaultUnitSystem)}
+            onPressItem={this._onPressItem}
+            selectedId={selectedId}
           />
         </View>
       </AndroidBackHandler>
@@ -363,9 +325,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 8,
     paddingHorizontal: 8,
-  },
-  list: {
-    paddingVertical: 12,
   },
   weightContainer: {
     flex: 1,
