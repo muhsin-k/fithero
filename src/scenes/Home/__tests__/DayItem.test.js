@@ -6,7 +6,6 @@ import mockMoment from 'moment';
 
 import DayItem from '../DayItem';
 import theme from '../../../utils/theme';
-import { isAfter } from '../../../utils/date';
 
 jest.mock('../../../utils/date', () => ({
   getShortDayInfo: jest.fn(() => ({
@@ -36,18 +35,7 @@ describe('DayItem', () => {
     expect(elem.props.style).toEqual([
       { alignItems: 'center', opacity: 0.5 },
       false,
-      false,
     ]);
-  });
-
-  it('renders a future day', () => {
-    // $FlowFixMe
-    isAfter.mockImplementation(() => true);
-    const { getByTestId } = _getRender({
-      dateString: '2019-05-04T00:00:00.000Z',
-    });
-    const elem = getByTestId('day-text-container');
-    expect(elem.props.style).toContainEqual({ opacity: 0.15 });
   });
 
   it('renders a selected day', () => {

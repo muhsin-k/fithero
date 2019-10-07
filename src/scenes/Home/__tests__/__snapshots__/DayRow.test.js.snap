@@ -77,11 +77,10 @@ Snapshot Diff:
 -             Sun
 +             Mon
 @@ --- --- @@
-+               false,
-@@ --- --- @@
 -               Object {
 -                 "opacity": 1,
 -               },
++               false,
 @@ --- --- @@
 -             18
 +             12
