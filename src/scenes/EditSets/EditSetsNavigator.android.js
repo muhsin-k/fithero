@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Keyboard, StyleSheet, View } from 'react-native';
 import TabbedViewPager from 'react-native-tabbed-view-pager-android';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
 
@@ -99,9 +99,10 @@ class EditSetsNavigator extends React.Component<Props, State> {
             tabNames={this.state.tabNames}
             style={styles.tabs}
             initialPage={0}
-            onPageSelected={event =>
-              this.onPageSelected(event.nativeEvent.position)
-            }
+            onPageSelected={event => {
+              Keyboard.dismiss();
+              this.onPageSelected(event.nativeEvent.position);
+            }}
             ref={r => {
               this.viewPager = r;
             }}
