@@ -13,6 +13,8 @@ You focus on your training. **FitHero** will focus on the rest. Built with [Reac
 ---
 
 [![Actions Status](https://github.com/ferrannp/fithero/workflows/CI/badge.svg)](https://github.com/ferrannp/fithero/actions)
+[![React Native Version](https://img.shields.io/github/package-json/dependency-version/ferrannp/fithero/react-native?color=%2361dafb)](https://github.com/react-native-community/releases/blob/master/CHANGELOG.md)
+[![License](https://img.shields.io/github/license/ferrannp/fithero)](https://github.com/ferrannp/fithero/blob/master/LICENSE)
 
 ## Features
 
@@ -40,7 +42,7 @@ Feel free to send us feedback on [Twitter](https://twitter.com/fitheroapp) or [f
 
 Created by <a href="https://ferrannp.com">Ferran Negre Pizarro.</a>
 
-FitHero is licensed under the [GNU General Public License v3.0](https://en.wikipedia.org/wiki/GNU_General_Public_License). See more in the See [LICENSE.md](LICENSE) file.
+FitHero is licensed under the [GNU General Public License v3.0](https://en.wikipedia.org/wiki/GNU_General_Public_License). See more in the [LICENSE.md](LICENSE) file.
 
 ## Acknowledgments
 
