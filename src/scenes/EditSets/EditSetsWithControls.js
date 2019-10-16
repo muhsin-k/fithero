@@ -54,6 +54,7 @@ export class EditSetsWithControls extends React.Component<Props, State> {
   weightInc: ActionIncDec;
   repsDec: ActionIncDec;
   repsInc: ActionIncDec;
+  isAddingExercise: boolean;
 
   constructor(props: Props) {
     super(props);
@@ -77,6 +78,9 @@ export class EditSetsWithControls extends React.Component<Props, State> {
       this.setState({
         weight: this._getInputWeight(nextProps, lastSet),
       });
+    }
+    if (this.isAddingExercise && nextProps.exercise) {
+      this.isAddingExercise = false;
     }
   }
 
@@ -147,8 +151,6 @@ export class EditSetsWithControls extends React.Component<Props, State> {
     });
   };
 
-  _keyExtractor = item => item.id;
-
   _onPressItem = (setId: string) => {
     if (this.state.selectedId === setId) {
       this.setState({ selectedId: '' });
@@ -214,6 +216,11 @@ export class EditSetsWithControls extends React.Component<Props, State> {
         type: exerciseKey,
         weight_unit: defaultUnitSystem,
       };
+      // If the user presses very fast it can try to create a duplicated primary key
+      if (this.isAddingExercise) {
+        return;
+      }
+      this.isAddingExercise = true;
       addExercise(newExercise);
     } else if (!selectedId) {
       const lastId = exercise.sets[exercise.sets.length - 1].id;
@@ -302,7 +309,7 @@ export class EditSetsWithControls extends React.Component<Props, State> {
           </Card>
           <EditSetsList
             exercise={exercise}
-            unit={getWeightUnit(exercise, defaultUnitSystem)}
+            unit={unit}
             onPressItem={this._onPressItem}
             selectedId={selectedId}
           />

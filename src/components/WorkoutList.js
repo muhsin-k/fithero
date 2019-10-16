@@ -71,7 +71,7 @@ class WorkoutList extends React.Component<Props> {
     if (
       !workout ||
       (workout &&
-        workout.isValid &&
+        workout.isValid() &&
         (workout.exercises.length === 0 && !workout.comments))
     ) {
       return <WorkoutEmptyView dayString={dayString} />;

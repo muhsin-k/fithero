@@ -10,14 +10,10 @@ import type {
   WorkoutSetSchemaType,
 } from '../database/types';
 import { extractExerciseKeyFromDatabase } from '../database/utils';
-import {
-  getMaxRepByType,
-  getMaxSetByType,
-} from '../database/services/WorkoutSetService';
 import { getWeightUnit } from '../utils/metrics';
 import type { DefaultUnitSystemType } from '../redux/modules/settings';
-import useRealmResultsHook from './useRealmResultsHook';
 import SetItem from './SetItem';
+import useMaxSetsHook from './useMaxSetsHook';
 
 type Props = {
   defaultUnitSystem: DefaultUnitSystemType,
@@ -34,13 +30,11 @@ const WorkoutItem = (props: Props) => {
     onPressItem,
   } = props;
 
-  const { data: maxSets } = useRealmResultsHook<WorkoutSetSchemaType>(
-    React.useCallback(() => getMaxSetByType(exercise.type), [exercise.type])
-  );
+  const [maxSets, maxReps] = useMaxSetsHook(exercise);
 
-  const { data: maxReps } = useRealmResultsHook<WorkoutSetSchemaType>(
-    React.useCallback(() => getMaxRepByType(exercise.type), [exercise.type])
-  );
+  if (!exercise.isValid()) {
+    return null;
+  }
 
   const _renderSet = (set: WorkoutSetSchemaType, index: number) => {
     const unit = getWeightUnit(exercise, defaultUnitSystem);

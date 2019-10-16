@@ -4,17 +4,10 @@ import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Divider } from 'react-native-paper';
 
-import useRealmResultsHook from '../../components/useRealmResultsHook';
-import type {
-  WorkoutExerciseSchemaType,
-  WorkoutSetSchemaType,
-} from '../../database/types';
-import {
-  getMaxRepByType,
-  getMaxSetByType,
-} from '../../database/services/WorkoutSetService';
+import type { WorkoutExerciseSchemaType } from '../../database/types';
 import EditSetItem from './EditSetItem';
 import type { DefaultUnitSystemType } from '../../redux/modules/settings';
+import useMaxSetsHook from '../../components/useMaxSetsHook';
 
 type Props = {
   exercise: ?WorkoutExerciseSchemaType,
@@ -26,22 +19,7 @@ type Props = {
 const EditSetsList = (props: Props) => {
   const { exercise, unit, onPressItem, selectedId } = props;
 
-  const { data: maxSets } = useRealmResultsHook<WorkoutSetSchemaType>(
-    React.useCallback(() => {
-      if (exercise && exercise.isValid()) {
-        // It's possible that we delete the whole exercise so this access to .sets would be invalid
-        return getMaxSetByType(exercise.type);
-      }
-    }, [exercise])
-  );
-  const { data: maxReps } = useRealmResultsHook<WorkoutSetSchemaType>(
-    React.useCallback(() => {
-      if (exercise && exercise.isValid()) {
-        return getMaxRepByType(exercise.type);
-      }
-    }, [exercise])
-  );
-
+  const [maxSets, maxReps] = useMaxSetsHook(exercise);
   const maxSetId = maxSets.length > 0 ? maxSets[0].id : null;
   const maxRepId = maxReps.length > 0 ? maxReps[0].id : null;
 

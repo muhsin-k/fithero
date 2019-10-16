@@ -22,13 +22,13 @@ const mockWorkouts = [
     date: toDate(dateString),
     comments: 'Testing comment.',
     exercises: [],
-    isValid: jest.fn(),
+    isValid: jest.fn(() => true),
   },
   {
     id: '20180523',
     date: toDate(dateStringLater),
     exercises: [],
-    isValid: jest.fn(),
+    isValid: jest.fn(() => true),
   },
 ];
 

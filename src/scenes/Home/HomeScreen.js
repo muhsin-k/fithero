@@ -171,7 +171,10 @@ class HomeScreen extends Component<Props, State> {
           onDaySelected={this._onDaySelected}
           workouts={workouts}
         />
-        {workouts && workouts[selectedDay] && workouts[selectedDay].comments ? (
+        {workouts &&
+        workouts[selectedDay] &&
+        workouts[selectedDay].isValid() &&
+        workouts[selectedDay].comments ? (
           <WorkoutComments
             comments={workouts[selectedDay].comments}
             day={selectedDay}
