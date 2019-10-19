@@ -1,7 +1,8 @@
 /* @flow */
 
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import createNativeStackNavigator from 'react-native-screens/createNativeStackNavigator';
 
 import tabBarIcon from './components/tabBarIcon';
 import i18n from './utils/i18n';
@@ -42,7 +43,7 @@ const MainStack = createMaterialBottomTabNavigator(
 );
 
 export default createAppContainer(
-  createStackNavigator(
+  createNativeStackNavigator(
     {
       Main: {
         screen: MainStack,
@@ -56,9 +57,6 @@ export default createAppContainer(
     },
     {
       mode: 'modal',
-      defaultNavigationOptions: {
-        gesturesEnabled: false,
-      },
     }
   )
 );

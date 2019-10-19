@@ -69,7 +69,7 @@ export class ExercisesScreen extends Component<Props, State> {
     ...Platform.select({
       android: { header: null },
     }),
-    headerRight: (
+    headerRight: () => (
       <HeaderIconButton
         onPress={() => navigation.navigate('EditExercise')}
         icon="add"

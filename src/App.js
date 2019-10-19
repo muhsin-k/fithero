@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Platform, StatusBar, YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
+import { useScreens } from 'react-native-screens';
 
 import store from './redux/configureStore';
 import MainNavigator from './MainNavigator';
@@ -17,6 +18,8 @@ import {
   setMomentFirstDayOfTheWeek,
 } from './utils/date';
 import PaperThemeProvider from './PaperThemeProvider';
+
+useScreens();
 
 if (global.__DEV__) {
   YellowBox.ignoreWarnings([

@@ -47,7 +47,7 @@ class WorkoutScreen extends React.Component<Props, State> {
     return {
       ...getDefaultNavigationOptions(screenProps.theme),
       title: getDatePrettyFormat(navigation.state.params.day, getToday(), true),
-      headerRight: (
+      headerRight: () => (
         <HeaderOverflowButton
           actions={[i18n.t('comment_workout'), i18n.t('share_workout')]}
           onPress={params.handleToolbarMenu}

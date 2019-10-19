@@ -49,10 +49,10 @@ export class EditExerciseScreen extends React.Component<Props, State> {
     return {
       ...getDefaultNavigationOptions(screenProps.theme),
       title: params.id ? i18n.t('edit_exercise') : i18n.t('new_exercise'),
-      headerLeft: (
+      headerLeft: () => (
         <HeaderIconButton icon="close" onPress={() => navigation.goBack()} />
       ),
-      headerRight: (
+      headerRight: () => (
         <HeaderButton onPress={params.onSave}>{i18n.t('save')}</HeaderButton>
       ),
     };

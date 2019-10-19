@@ -52,7 +52,7 @@ class CommentsScreen extends React.Component<Props, State> {
     const { params = {} } = navigation.state;
     return {
       ...getDefaultNavigationOptions(screenProps.theme),
-      headerRight: (
+      headerRight: () => (
         <HeaderButton onPress={params.saveComments}>
           {i18n.t('save')}
         </HeaderButton>

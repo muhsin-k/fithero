@@ -76,7 +76,7 @@ class HomeScreen extends Component<Props, State> {
     const { params = {} } = navigation.state;
     return {
       ...getDefaultNavigationOptions(screenProps.theme),
-      headerRight: (
+      headerRight: () => (
         <View style={styles.headerButtons}>
           <HeaderIconButton icon="date-range" onPress={navigateToCalendar} />
           <HeaderOverflowButton

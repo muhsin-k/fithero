@@ -57,7 +57,7 @@ export class CalendarScreen extends React.Component<Props, State> {
     const { params = {} } = navigation.state;
     return {
       ...getDefaultNavigationOptions(screenProps.theme),
-      headerRight: (
+      headerRight: () => (
         <HeaderIconButton
           onPress={() => {
             if (params.scrollToToday) {

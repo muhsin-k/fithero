@@ -41,7 +41,7 @@ type State = {
 class EditSetsNavigator extends React.Component<Props, State> {
   static navigationOptions = ({ screenProps }: NavigationOptions) => ({
     ...getDefaultNavigationOptions(screenProps.theme),
-    headerTitle: '',
+    headerTitle: () => '',
   });
 
   state = {

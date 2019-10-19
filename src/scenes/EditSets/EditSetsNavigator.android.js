@@ -50,10 +50,11 @@ class EditSetsNavigator extends React.Component<Props, State> {
     screenProps,
   }: NavigationOptions) => ({
     ...getDefaultNavigationOptions(screenProps.theme),
-    headerTitle: getExerciseName(
-      navigation.state.params.exerciseKey,
-      navigation.state.params.exerciseName
-    ),
+    headerTitle: () =>
+      getExerciseName(
+        navigation.state.params.exerciseKey,
+        navigation.state.params.exerciseName
+      ),
   });
 
   constructor(props: Props) {

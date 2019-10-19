@@ -1,6 +1,6 @@
 /* @flow */
 
-import { createStackNavigator } from 'react-navigation';
+import createNativeStackNavigator from 'react-native-screens/createNativeStackNavigator';
 
 import i18n from '../utils/i18n';
 import HomeScreen from './Home';
@@ -11,7 +11,7 @@ import WorkoutScreen from './Workouts';
 import ExerciseDetailsScreen from './ExerciseDetails';
 import CommentsScreen from './Comments';
 
-export default createStackNavigator({
+export default createNativeStackNavigator({
   Home: {
     screen: HomeScreen,
   },

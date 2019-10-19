@@ -1,11 +1,11 @@
 /* @flow */
 
-import { createStackNavigator } from 'react-navigation';
+import createNativeStackNavigator from 'react-native-screens/createNativeStackNavigator';
 
 import i18n from '../utils/i18n';
 import SettingsScreen from './Settings';
 
-export default createStackNavigator({
+export default createNativeStackNavigator({
   Settings: {
     screen: SettingsScreen,
     navigationOptions: {

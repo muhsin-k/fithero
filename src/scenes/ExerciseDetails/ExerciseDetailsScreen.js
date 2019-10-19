@@ -55,19 +55,22 @@ class ExerciseDetailsScreen extends React.Component<Props, State> {
 
     return {
       ...getDefaultNavigationOptions(screenProps.theme),
-      headerRight: isCustomExercise(params.id) ? (
-        <View style={styles.toolbarActions}>
-          <HeaderIconButton onPress={() => params.editAction()} icon="edit" />
-          <HeaderOverflowButton
-            onPress={i => params.deleteAction(i)}
-            actions={[i18n.t('delete')]}
-            destructiveButtonIndex={1}
-            last
-          />
-        </View>
-      ) : (
-        undefined
-      ),
+      headerRight: isCustomExercise(params.id)
+        ? () => (
+            <View style={styles.toolbarActions}>
+              <HeaderIconButton
+                onPress={() => params.editAction()}
+                icon="edit"
+              />
+              <HeaderOverflowButton
+                onPress={i => params.deleteAction(i)}
+                actions={[i18n.t('delete')]}
+                destructiveButtonIndex={1}
+                last
+              />
+            </View>
+          )
+        : undefined,
     };
   };
 

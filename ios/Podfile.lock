@@ -95,6 +95,8 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
+  - RNScreens (2.0.0-alpha.4):
+    - React
   - SwiftyJSON (5.0.0)
   - UMBarCodeScannerInterface (4.0.0)
   - UMCameraInterface (4.0.0)
@@ -140,6 +142,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - SwiftyJSON (= 5.0)
   - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
   - UMCameraInterface (from `../node_modules/unimodules-camera-interface/ios`)
@@ -156,7 +159,7 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - boost-for-react-native
     - Charts
     - SwiftyJSON
@@ -217,6 +220,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   React-RCTWebSocket:
     :path: "../node_modules/react-native/Libraries/WebSocket"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   UMBarCodeScannerInterface:
     :path: !ruby/object:Pathname
     path: "../node_modules/unimodules-barcode-scanner-interface/ios"
@@ -284,6 +289,7 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
+  RNScreens: 84be1a2369a580beb2fea0755cc62ef16b83fffe
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   UMBarCodeScannerInterface: d5a6fdc98ed6241225b0a8432a7f4e2b397668bc
   UMCameraInterface: 68870a3197fee85bd5afca5609ba4a5b7257d19d
@@ -299,6 +305,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 1e70fe58b872355f0ecb44fb81bb1a16484047f0
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 67be4168650c5b07277270b1c586a580d233bcbc
+PODFILE CHECKSUM: 482ad54d5f289de2cf9bb1a44b8a7f363fdc4dfa
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.8.3

@@ -3,6 +3,7 @@ package com.fnp.fithero;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.swmansion.rnscreens.RNScreensPackage;
 import com.github.wuxudong.rncharts.MPAndroidChartPackage;
 import is.uncommon.rn.widgets.TabbedViewPagerAndroidPackage;
 
@@ -61,7 +62,8 @@ public class MainApplication extends Application implements ReactApplication, Sh
           new VectorIconsPackage(),
           new RNSharePackage(),
           new ModuleRegistryAdapter(mModuleRegistryProvider),
-          new RNSplashScreenPackage()
+          new RNSplashScreenPackage(),
+          new RNScreensPackage()
       );
     }
 
