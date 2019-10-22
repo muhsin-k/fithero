@@ -58,7 +58,13 @@ export const backupDatabase = async () => {
   }/fithero-backup-${getToday().format('YYYY-MM-DD')}.json`;
   await FileSystem.writeAsStringAsync(filePath, backupJSON);
 
-  await Share.open({ url: `file://${filePath}`, type: 'text/plain' });
+  try {
+    await Share.open({ url: `file://${filePath}`, type: 'text/plain' });
+  } catch (e) {
+    if (e.message !== 'User did not share') {
+      throw e;
+    }
+  }
 };
 
 export const restoreDatabase = async (
