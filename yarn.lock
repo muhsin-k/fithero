@@ -7374,9 +7374,9 @@ react-native-safe-area-view@^0.13.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.16.tgz#e3651b7077ea8fa04e8dd3265ad9b87f1f77a758"
   integrity sha512-t+/aq5jQa+Is6afiQHa1P+2UPnwPGY9NT0pSqNr2zQ5llCn8TcPq6GN8xDMuEc08g+y/9R5zWo32hlVStwWn1A==
 
-"react-native-screens@https://github.com/kmagiera/react-native-screens.git":
-  version "2.0.0-alpha.4"
-  resolved "https://github.com/kmagiera/react-native-screens.git#4a9a3a877a730d95fb7bf007f195e5d8445f51a9"
+"react-native-screens@https://github.com/kmagiera/react-native-screens.git#09c71a45a29ce8446396d7836c1e4e48bd55175b":
+  version "2.0.0-alpha.5"
+  resolved "https://github.com/kmagiera/react-native-screens.git#09c71a45a29ce8446396d7836c1e4e48bd55175b"
   dependencies:
     debounce "^1.2.0"
 

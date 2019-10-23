@@ -95,7 +95,7 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
-  - RNScreens (2.0.0-alpha.4):
+  - RNScreens (2.0.0-alpha.5):
     - React
   - SwiftyJSON (5.0.0)
   - UMBarCodeScannerInterface (4.0.0)
@@ -289,7 +289,7 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
-  RNScreens: 84be1a2369a580beb2fea0755cc62ef16b83fffe
+  RNScreens: ca5c144495ebf33cc1f66be04a7fd3fafd3e40ff
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   UMBarCodeScannerInterface: d5a6fdc98ed6241225b0a8432a7f4e2b397668bc
   UMCameraInterface: 68870a3197fee85bd5afca5609ba4a5b7257d19d
@@ -307,4 +307,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 482ad54d5f289de2cf9bb1a44b8a7f363fdc4dfa
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

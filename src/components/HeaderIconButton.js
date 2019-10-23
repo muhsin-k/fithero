@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
   lastStyle: {
-    paddingRight: 16,
+    paddingRight: 0,
   },
 });
 

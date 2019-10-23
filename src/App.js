@@ -91,6 +91,7 @@ export default class App extends React.Component<{}, State> {
     this.setState({ loading: false });
   };
 
+  // TODO persistenceKey null for now till it works
   render() {
     return (
       <Provider store={store}>
@@ -99,7 +100,7 @@ export default class App extends React.Component<{}, State> {
           <PaperThemeProvider
             render={appTheme => (
               <MainNavigator
-                persistenceKey={navigationPersistenceKey}
+                persistenceKey={null}
                 screenProps={{ theme: appTheme }}
               />
             )}

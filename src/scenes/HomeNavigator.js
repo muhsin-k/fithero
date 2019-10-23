@@ -36,7 +36,9 @@ export default createNativeStackNavigator({
   EditSets: {
     screen: EditSetsScreen,
     navigationOptions: {
-      title: i18n.t('sets'),
+      // TODO
+      // title: i18n.t('sets'),
+      title: '',
     },
   },
   Workouts: {

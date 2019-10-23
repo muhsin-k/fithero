@@ -15,8 +15,9 @@ type Props = {
 };
 
 const ExerciseHistoryAndroid = (props: Props) => {
-  const [showHistory, setShowHistory] = useState(false);
+  const [showHistory, setShowHistory] = useState(true); // TODO
 
+  // TODO not working
   useLayoutEffect(() => {
     const didFocusSubscription = props.navigation.addListener(
       'didFocus',
