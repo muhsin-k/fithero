@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   setIndex: {
-    flex: 0.06,
+    flex: 0.08,
     paddingRight: 8,
   },
   setWeight: {

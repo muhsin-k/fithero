@@ -292,9 +292,14 @@ export class ExercisesScreen extends Component<Props, State> {
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
           ListHeaderComponent={this._renderHeader}
-          keyboardShouldPersistTaps="always"
           contentContainerStyle={styles.list}
           stickySectionHeadersEnabled={true}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          onScrollBeginDrag={() => {
+            // RN issue on Android https://github.com/facebook/react-native/issues/23364
+            Platform.OS === 'android' && Keyboard.dismiss();
+          }}
         />
       </Screen>
     );

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Platform, StatusBar, YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
+import SafeAreaProvider from './components/SafeAreaProvider';
 
 import store from './redux/configureStore';
 import MainNavigator from './MainNavigator';
@@ -97,10 +98,12 @@ export default class App extends React.Component<{}, State> {
         {!this.state.loading && (
           <PaperThemeProvider
             render={appTheme => (
-              <MainNavigator
-                persistenceKey={navigationPersistenceKey}
-                screenProps={{ theme: appTheme }}
-              />
+              <SafeAreaProvider>
+                <MainNavigator
+                  persistenceKey={navigationPersistenceKey}
+                  screenProps={{ theme: appTheme }}
+                />
+              </SafeAreaProvider>
             )}
           />
         )}

@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Screen from '../../components/Screen';
@@ -53,14 +53,7 @@ class EditSetsScreen extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    ...Platform.select({
-      ios: {
-        paddingVertical: 8,
-      },
-      android: {
-        paddingTop: 8,
-      },
-    }),
+    paddingTop: 8,
   },
 });
 

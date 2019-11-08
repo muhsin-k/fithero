@@ -31,6 +31,7 @@ target 'FitHero' do
 
   pod 'SwiftyJSON', '5.0'
   pod 'Charts', '3.3'
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
   # TODO uncomment when using autolinking
   # use_native_modules!

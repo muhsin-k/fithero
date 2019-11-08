@@ -66,6 +66,7 @@ class EditSetsInputControls extends React.Component<Props> {
               styles.textInput,
             ]}
             placeholderTextColor={theme.colors.placeholder}
+            returnKeyType="done"
             {...rest}
           />
           {EditSetsInputControls._renderInput(controls[1])}
