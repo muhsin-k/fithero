@@ -31,6 +31,8 @@ if (global.__DEV__) {
     'Accessing view manager configs directly off UIManager',
     // Comes from some libraries too
     'componentWillReceiveProps is deprecated',
+    // Moment deprecation
+    'Deprecation warning: use moment.updateLocale',
   ]);
 }
 

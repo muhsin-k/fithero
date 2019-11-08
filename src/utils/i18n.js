@@ -33,6 +33,14 @@ i18nJS.locale = languageTag;
 
 export const clearTranslateCache = () => translate.cache.clear();
 
+export const getDeviceCurrentLanguage = () => {
+  const locales = RNLocalize.getLocales();
+  if (locales[0]) {
+    return locales[0].languageCode;
+  }
+  return 'en';
+};
+
 const i18n = {
   t: translate,
 };

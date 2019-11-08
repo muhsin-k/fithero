@@ -1,9 +1,8 @@
 /* @flow */
 
 import moment from 'moment';
-import * as RNLocalize from 'react-native-localize';
 
-import i18n from './i18n';
+import i18n, { getDeviceCurrentLanguage } from './i18n';
 import regionDayMap from './regionDayMap';
 import type { FirstDayOfTheWeekType } from '../redux/modules/settings';
 
@@ -114,7 +113,7 @@ export const getSafeTimezoneTime = (date: Date) => {
 };
 
 export const getCurrentLocale = () => {
-  return RNLocalize.getCountry();
+  return getDeviceCurrentLanguage();
 };
 
 export const setMomentFirstDayOfTheWeek = (
