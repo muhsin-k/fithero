@@ -1,0 +1,56 @@
+diff --git a/node_modules/react-native/React/Views/RCTSegmentedControl.m b/node_modules/react-native/React/Views/RCTSegmentedControl.m
+index adbde60..6731384 100644
+--- a/node_modules/react-native/React/Views/RCTSegmentedControl.m
++++ b/node_modules/react-native/React/Views/RCTSegmentedControl.m
+@@ -39,6 +39,38 @@ - (void)setSelectedIndex:(NSInteger)selectedIndex
+   super.selectedSegmentIndex = selectedIndex;
+ }
+ 
++- (void)setBackgroundColor:(UIColor *)backgroundColor
++{
++    #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && \
++        __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
++    if (@available(iOS 13.0, *)) {
++      [super setBackgroundColor:backgroundColor];
++    }
++    #endif
++}
++
++- (void)setTextColor:(UIColor *)textColor
++{
++    #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && \
++        __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
++    if (@available(iOS 13.0, *)) {
++      [self setTitleTextAttributes:@{NSForegroundColorAttributeName: textColor}
++                  forState:UIControlStateNormal];
++    }
++    #endif
++}
++
++- (void)setTintColor:(UIColor *)tintColor
++{
++    [super setTintColor:tintColor];
++  #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && \
++      __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
++    if (@available(iOS 13.0, *)) {
++      [self setSelectedSegmentTintColor:tintColor];
++    }
++  #endif
++}
++
+ - (void)didChange
+ {
+   _selectedIndex = self.selectedSegmentIndex;
+diff --git a/node_modules/react-native/React/Views/RCTSegmentedControlManager.m b/node_modules/react-native/React/Views/RCTSegmentedControlManager.m
+index 2994065..75edcc7 100644
+--- a/node_modules/react-native/React/Views/RCTSegmentedControlManager.m
++++ b/node_modules/react-native/React/Views/RCTSegmentedControlManager.m
+@@ -23,6 +23,8 @@ - (UIView *)view
+ RCT_EXPORT_VIEW_PROPERTY(values, NSArray<NSString *>)
+ RCT_EXPORT_VIEW_PROPERTY(selectedIndex, NSInteger)
+ RCT_EXPORT_VIEW_PROPERTY(tintColor, UIColor)
++RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor)
++RCT_EXPORT_VIEW_PROPERTY(textColor, UIColor)
+ RCT_EXPORT_VIEW_PROPERTY(momentary, BOOL)
+ RCT_EXPORT_VIEW_PROPERTY(enabled, BOOL)
+ RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)

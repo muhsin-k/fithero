@@ -19,4 +19,7 @@ export type ThemeColorsType = {|
   +toolbarTint: string,
   +trophy: string,
   +trophyReps: string,
+  +textSegmentedControl: string,
+  +backgroundSegmentedControl: string,
+  +selectedSegmentedControl: string,
 |};

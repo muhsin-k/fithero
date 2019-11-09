@@ -16,11 +16,7 @@ type Props = {
   theme: ThemeType,
 };
 
-class ExerciseItem extends React.Component<Props> {
-  shouldComponentUpdate(nextProps: Props) {
-    return this.props.exercise !== nextProps.exercise;
-  }
-
+class ExerciseItem extends React.PureComponent<Props> {
   _openExerciseDetail = () => {
     this.props.navigate('ExerciseDetails', { id: this.props.exercise.id });
   };

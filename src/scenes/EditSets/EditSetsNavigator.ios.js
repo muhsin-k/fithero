@@ -77,7 +77,9 @@ class EditSetsNavigator extends React.Component<Props, State> {
               selectedIndex: event.nativeEvent.selectedSegmentIndex,
             });
           }}
-          tintColor={theme.colors.text}
+          tintColor={theme.colors.selectedSegmentedControl}
+          backgroundColor={theme.colors.backgroundSegmentedControl}
+          textColor={theme.colors.textSegmentedControl}
           style={styles.tabs}
         />
         <ContentComponent navigation={navigation} />
