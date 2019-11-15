@@ -16,7 +16,7 @@ import {
 import { MockRealmArray } from '../../../database/services/__tests__/helpers/databaseMocks';
 import type { WorkoutExerciseSchemaType } from '../../../database/types';
 
-jest.mock('Keyboard');
+jest.mock('react-native/Libraries/Components/Keyboard/Keyboard');
 
 jest.mock('../../../database/services/WorkoutSetService', () => ({
   addSet: jest.fn(),

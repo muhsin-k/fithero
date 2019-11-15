@@ -1,7 +1,7 @@
 /* @flow */
 
-import * as React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import React, { useCallback } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Checkbox, RadioButton } from 'react-native-paper';
 
 import { muscleCategories } from '../../utils/muscles';
@@ -13,40 +13,34 @@ type Props = {
   multiple: boolean,
 };
 
-class MuscleSelector extends React.Component<Props> {
-  static defaultProps = {
-    multiple: true,
-  };
+const MuscleSelector = (props: Props) => {
+  const { multiple, muscles, onValueChange } = props;
 
-  _onMuscleChange = muscleId => {
-    const { multiple, muscles } = this.props;
+  const onMuscleChange = useCallback(
+    muscleId => {
+      let newValues = {};
+      if (multiple) {
+        newValues = {
+          ...muscles,
+          [muscleId]: muscles[muscleId] ? !muscles[muscleId] : true,
+        };
+      } else {
+        newValues = {
+          [muscleId]: muscles[muscleId] ? muscles[muscleId] : true,
+        };
+      }
 
-    let newValues = {};
-    if (multiple) {
-      newValues = {
-        ...muscles,
-        [muscleId]: muscles[muscleId] ? !muscles[muscleId] : true,
-      };
-    } else {
-      newValues = {
-        [muscleId]: muscles[muscleId] ? muscles[muscleId] : true,
-      };
-    }
+      onValueChange(newValues);
+    },
+    [multiple, muscles, onValueChange]
+  );
 
-    this.props.onValueChange(newValues);
-  };
+  const ItemComponent = props.multiple ? Checkbox : RadioButton;
 
-  render() {
-    const { muscles } = this.props;
-    const ItemComponent = this.props.multiple ? Checkbox : RadioButton;
-
-    return (
-      <FlatList
-        data={muscleCategories}
-        keyExtractor={item => item.id}
-        numColumns={2}
-        extraData={muscles}
-        renderItem={({ item }) => (
+  return (
+    <View style={styles.row}>
+      {muscleCategories.map(item => {
+        return (
           <MuscleItem
             key={item.id}
             muscle={item}
@@ -55,19 +49,27 @@ class MuscleSelector extends React.Component<Props> {
                 ? muscles === item.id
                 : !!muscles[item.id]
             }
-            onValueChange={this._onMuscleChange}
+            onValueChange={onMuscleChange}
             style={styles.item}
             render={props => (
               <ItemComponent status={props.checked ? 'checked' : 'unchecked'} />
             )}
           />
-        )}
-      />
-    );
-  }
-}
+        );
+      })}
+    </View>
+  );
+};
+
+MuscleSelector.defaultProps = {
+  multiple: true,
+};
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   item: {
     width: '50%',
   },

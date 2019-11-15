@@ -1,0 +1,29 @@
+diff --git a/node_modules/react-native-share/index.js b/node_modules/react-native-share/index.js
+index 3929653..12934d3 100644
+--- a/node_modules/react-native-share/index.js
++++ b/node_modules/react-native-share/index.js
+@@ -159,15 +159,15 @@ class RNShare {
+   static Overlay: any;
+   static Sheet: any;
+   static Social = {
+-    FACEBOOK: NativeModules.RNShare.FACEBOOK || 'facebook',
+-    PAGESMANAGER: NativeModules.RNShare.PAGESMANAGER || 'pagesmanager',
+-    TWITTER: NativeModules.RNShare.TWITTER || 'twitter',
+-    WHATSAPP: NativeModules.RNShare.WHATSAPP || 'whatsapp',
+-    INSTAGRAM: NativeModules.RNShare.INSTAGRAM || 'instagram',
+-    GOOGLEPLUS: NativeModules.RNShare.GOOGLEPLUS || 'googleplus',
+-    EMAIL: NativeModules.RNShare.EMAIL || 'email',
+-    PINTEREST: NativeModules.RNShare.PINTEREST || 'pinterest',
+-    LINKEDIN: NativeModules.RNShare.LINKEDIN || 'linkedin',
++    FACEBOOK: NativeModules.RNShare && NativeModules.RNShare.FACEBOOK || 'facebook',
++    PAGESMANAGER: NativeModules.RNShare && NativeModules.RNShare.PAGESMANAGER || 'pagesmanager',
++    TWITTER: NativeModules.RNShare && NativeModules.RNShare.TWITTER || 'twitter',
++    WHATSAPP: NativeModules.RNShare && NativeModules.RNShare.WHATSAPP || 'whatsapp',
++    INSTAGRAM: NativeModules.RNShare && NativeModules.RNShare.INSTAGRAM || 'instagram',
++    GOOGLEPLUS: NativeModules.RNShare && NativeModules.RNShare.GOOGLEPLUS || 'googleplus',
++    EMAIL: NativeModules.RNShare && NativeModules.RNShare.EMAIL || 'email',
++    PINTEREST: NativeModules.RNShare && NativeModules.RNShare.PINTEREST || 'pinterest',
++    LINKEDIN: NativeModules.RNShare && NativeModules.RNShare.LINKEDIN || 'linkedin',
+   };
+ 
+   static open(options: Options | MultipleOptions): Promise<OpenReturn> {

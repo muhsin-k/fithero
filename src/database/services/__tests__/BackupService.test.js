@@ -13,10 +13,6 @@ import { EXERCISE_SCHEMA_NAME } from '../../schemas/ExerciseSchema';
 import { Settings } from '../../../utils/constants';
 import { setMomentFirstDayOfTheWeek } from '../../../utils/date';
 
-jest.mock('NativeModules', () => ({
-  RNShare: {},
-}));
-
 const mockMomentDate = moment('2019-03-30T00:00:00.000Z').utc(false);
 
 jest.mock('../../../utils/date', () => {

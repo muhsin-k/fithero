@@ -29,6 +29,7 @@ class HeaderOverflowButton extends React.Component<Props> {
         () => {},
         (action, index) => {
           if (action === 'itemSelected') {
+            // $FlowFixMe
             this.props.onPress(index);
           }
         }

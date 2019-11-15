@@ -27,11 +27,13 @@ if (global.__DEV__) {
     // https://github.com/facebook/react-native/issues/18201
     'Warning: Class RCTCxxModule was not exported',
     // Comes from react-navigation
-    'Async Storage has been extracted',
+    'Warning: AsyncStorage has been extracted',
+    '-[RCTRootView cancelTouches]` is deprecated and will be deleted soon.',
     // Comes from react-native-tabbed-view-pager-android
     'Accessing view manager configs directly off UIManager',
     // Comes from some libraries too
     'componentWillReceiveProps is deprecated',
+    'Warning: componentWillReceiveProps has been renamed',
     // Moment deprecation
     'Deprecation warning: use moment.updateLocale',
   ]);

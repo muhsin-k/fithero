@@ -8,7 +8,7 @@ import {
   mockWorkouts,
 } from '../../database/services/__tests__/helpers/databaseMocks';
 
-jest.mock('Share', () => ({
+jest.mock('react-native/Libraries/Share/Share', () => ({
   share: jest.fn(),
 }));
 

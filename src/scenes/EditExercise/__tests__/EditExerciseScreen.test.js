@@ -7,7 +7,7 @@ import { TextInput } from 'react-native-paper';
 import { EditExerciseScreen } from '../EditExerciseScreen';
 import theme from '../../../utils/theme';
 
-jest.mock('NativeAnimatedHelper'); // Warning from useNativeDriver
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper.js'); // Warning from useNativeDriver
 jest.useFakeTimers(); // Issues with Animated
 
 it('handles validation errors', () => {
