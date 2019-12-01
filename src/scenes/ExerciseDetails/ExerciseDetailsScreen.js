@@ -3,7 +3,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Paragraph, Caption, Title } from 'react-native-paper';
-import { exercises } from 'dziku-exercises';
+import { exercises } from 'fithero-exercises';
 import memoize from 'lodash/memoize';
 
 import DataProvider from '../../components/DataProvider';

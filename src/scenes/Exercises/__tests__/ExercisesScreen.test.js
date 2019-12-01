@@ -3,7 +3,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Keyboard } from 'react-native';
-import { exercises } from 'dziku-exercises';
+import { exercises } from 'fithero-exercises';
 
 import { ExercisesScreen } from '../ExercisesScreen';
 import theme from '../../../utils/theme';

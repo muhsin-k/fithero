@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { Caption, Divider, IconButton, Searchbar } from 'react-native-paper';
-import { exercises as dzikuExercises } from 'dziku-exercises';
+import { exercises as fitHeroExercises } from 'fithero-exercises';
 import sortBy from 'lodash/sortBy';
 
 import Screen from '../../components/Screen';
@@ -85,7 +85,7 @@ export class ExercisesScreen extends Component<Props, State> {
     // a lot of problems when for example, the Restore function deletes all the database.
     // The user will not often add, modify or delete exercises so deserialize here is acceptable
     const customExercises = deserializeExercises(this.realmExercises);
-    const exercises = sortBy([...customExercises, ...dzikuExercises], e =>
+    const exercises = sortBy([...customExercises, ...fitHeroExercises], e =>
       getExerciseName(e.id, e.name)
     );
     this.realmRecentExercises = getRecentExercises(toDate(getToday()));
@@ -113,7 +113,7 @@ export class ExercisesScreen extends Component<Props, State> {
         const realmExercises = getAllExercises();
         const customExercises = deserializeExercises(realmExercises);
         this.setState({
-          exercises: sortBy([...customExercises, ...dzikuExercises], e =>
+          exercises: sortBy([...customExercises, ...fitHeroExercises], e =>
             getExerciseName(e.id, e.name)
           ),
         });
