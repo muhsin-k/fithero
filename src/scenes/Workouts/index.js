@@ -1,3 +1,3 @@
 /* @flow */
 
-export { default } from './WorkoutScreen';
+export { default } from './WorkoutDayScreen';

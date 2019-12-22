@@ -6,7 +6,8 @@ import { render } from 'react-native-testing-library';
 import { getToday, toDate } from '../../../utils/date';
 import HomeScreen from '../HomeScreen';
 import { Provider } from 'react-redux';
-import store from '../../../redux/configureStore';
+import { RealmArray } from '../../../database/services/__tests__/helpers/databaseMocks';
+import { createStore } from 'redux';
 
 jest.mock('react-navigation', () => ({
   NavigationEvents: () => null,
@@ -21,23 +22,21 @@ const mockWorkouts = [
     id: '20180522',
     date: toDate(dateString),
     comments: 'Testing comment.',
-    exercises: [],
+    exercises: new RealmArray(),
     isValid: jest.fn(() => true),
   },
   {
     id: '20180523',
     date: toDate(dateStringLater),
-    exercises: [],
+    exercises: new RealmArray(),
     isValid: jest.fn(() => true),
   },
 ];
 
-jest.mock('../../../components/DataProvider', () => props =>
-  props.render({
-    [mockWorkouts[0].id]: mockWorkouts[0],
-    [mockWorkouts[1].id]: mockWorkouts[1],
-  })
-);
+jest.mock('../../../hooks/useRealmResultsHook', () => () => ({
+  data: mockWorkouts,
+}));
+
 jest.mock('../../../utils/date', () => {
   const actualDate = jest.requireActual('../../../utils/date');
   return {
@@ -47,13 +46,19 @@ jest.mock('../../../utils/date', () => {
 });
 
 describe('HomeScreen', () => {
-  const _getRender = () => {
+  const _getRender = selectedDay => {
     return render(
-      <Provider store={store}>
-        <HomeScreen
-          firstDayOfTheWeek="monday"
-          navigation={{ setParams: jest.fn() }}
-        />
+      <Provider
+        store={createStore(() => ({
+          settings: {
+            firstDayOfTheWeek: 'monday',
+          },
+          home: {
+            selectedDay,
+          },
+        }))}
+      >
+        <HomeScreen />
       </Provider>
     );
   };
@@ -61,7 +66,7 @@ describe('HomeScreen', () => {
   it('render comments if the workout has them', () => {
     // $FlowFixMe
     getToday.mockImplementation(() => '2018-05-22T00:00:00.000Z');
-    const { getByText } = _getRender();
+    const { getByText } = _getRender('20180522');
 
     expect(getByText(mockWorkouts[0].comments)).toBeDefined();
   });
@@ -69,7 +74,7 @@ describe('HomeScreen', () => {
   it('does not render comments if the workout does not have them', () => {
     // $FlowFixMe
     getToday.mockImplementation(() => '2018-05-23T00:00:00.000Z');
-    const { queryByText } = _getRender();
+    const { queryByText } = _getRender('20180523');
 
     expect(queryByText(mockWorkouts[0].comments)).toBeNull();
   });

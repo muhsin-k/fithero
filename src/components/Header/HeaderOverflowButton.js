@@ -9,16 +9,16 @@ import {
 } from 'react-native';
 
 import HeaderIconButton from './HeaderIconButton';
-import i18n from '../utils/i18n';
+import i18n from '../../utils/i18n';
 
-type Props = {
+export type HeaderOverflowButtonProps = {|
   actions: Array<string>,
-  onPress: (index: number) => void,
+  onPress: (index: number) => mixed,
   destructiveButtonIndex?: number,
   last?: boolean,
-};
+|};
 
-class HeaderOverflowButton extends React.Component<Props> {
+class HeaderOverflowButton extends React.Component<HeaderOverflowButtonProps> {
   menuRef: ?HeaderIconButton;
 
   _onPress = () => {

@@ -44,7 +44,7 @@ export const getShortDayInfo = (dateString: string) => {
 
 export const getToday = () => moment().startOf('day');
 
-export const isSameDay = (date: Date, today: string) =>
+export const isSameDay = (date: Date | string, today: Date | string) =>
   moment(date).isSame(moment(today), 'day');
 
 export const dateToWorkoutId = (date: Date | string) =>
@@ -57,7 +57,7 @@ export const toDate = (dateString: string) => moment(dateString).toDate();
 export const getDatePrettyFormat = (
   dateString: Date | string,
   today: string,
-  short?: boolean = false
+  short: boolean = false
 ) => {
   const date = moment(dateString);
   const isToday = date.isSame(moment(today), 'day');
@@ -119,7 +119,7 @@ export const getCurrentLocale = () => {
 export const setMomentFirstDayOfTheWeek = (
   locale: string,
   day: number,
-  updateLocale?: boolean = false
+  updateLocale: boolean = false
 ) => {
   moment[updateLocale ? 'updateLocale' : 'locale'](locale.toLowerCase(), {
     week: {

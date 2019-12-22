@@ -5,8 +5,8 @@ import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import withTheme from '../utils/theme/withTheme';
-import type { ThemeType } from '../utils/theme/withTheme';
+import withTheme from '../../utils/theme/withTheme';
+import type { ThemeType } from '../../utils/theme/withTheme';
 
 type Props = {|
   icon: string,

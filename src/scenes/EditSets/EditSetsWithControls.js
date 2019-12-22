@@ -13,6 +13,7 @@ import EditSetsInputControls from './EditSetsInputControls';
 import i18n from '../../utils/i18n';
 import EditSetActionButtons from './EditSetActionButtons';
 import {
+  deserializeWorkoutExercise,
   extractSetIndexFromDatabase,
   getExerciseSchemaId,
   getSetSchemaId,
@@ -308,10 +309,16 @@ export class EditSetsWithControls extends React.Component<Props, State> {
             />
           </Card>
           <EditSetsList
-            exercise={exercise}
+            exercise={
+              // It's possible that we delete the whole exercise so this access to .sets would be invalid
+              exercise && exercise.isValid()
+                ? deserializeWorkoutExercise(exercise)
+                : null
+            }
             unit={unit}
             onPressItem={this._onPressItem}
             selectedId={selectedId}
+            type={this.props.exerciseKey}
           />
         </View>
       </AndroidBackHandler>

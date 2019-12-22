@@ -1,6 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
+import { useCallback, memo } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,7 +13,7 @@ import withTheme from '../../utils/theme/withTheme';
 import { toLb, toTwoDecimals } from '../../utils/metrics';
 import type { DefaultUnitSystemType } from '../../redux/modules/settings';
 
-type Props = {
+type Props = {|
   isSelected: boolean,
   maxSetType: 'maxSet' | 'maxRep' | null,
   onPressItem: (setId: string) => void,
@@ -20,58 +21,64 @@ type Props = {
   set: WorkoutSetSchemaType,
   theme: ThemeType,
   unit: DefaultUnitSystemType,
-};
+|};
 
-class EditSetItem extends React.PureComponent<Props> {
-  _onPressItem = () => {
-    this.props.onPressItem(this.props.set.id);
-  };
+const EditSetItem = (props: Props) => {
+  const {
+    index,
+    isSelected,
+    maxSetType,
+    onPressItem,
+    set,
+    theme,
+    unit,
+  } = props;
 
-  render() {
-    const { index, isSelected, maxSetType, set, theme, unit } = this.props;
+  const onPress = useCallback(() => {
+    onPressItem(set.id);
+  }, [onPressItem, set.id]);
 
-    return (
-      <TouchableWithoutFeedback onPress={this._onPressItem}>
-        <View
-          style={[
-            styles.item,
-            isSelected && { backgroundColor: theme.colors.selected },
-          ]}
-        >
-          <View style={styles.leftContent}>
-            <Text style={[styles.text, styles.index]}>{index}.</Text>
-            <Icon
-              name="trophy"
-              size={24}
-              color={
-                maxSetType === 'maxRep'
-                  ? theme.colors.trophyReps
-                  : theme.colors.trophy
-              }
-              style={[styles.icon, !maxSetType && styles.notMax]}
-            />
-          </View>
-          <Text style={[styles.text, styles.weight]}>
-            {unit === 'metric'
-              ? toTwoDecimals(set.weight)
-              : toTwoDecimals(toLb(set.weight))}{' '}
-            <Text style={[styles.unit, { color: theme.colors.secondaryText }]}>
-              {unit === 'metric'
-                ? i18n.t('kg.unit', { count: set.weight })
-                : i18n.t('lb')}{' '}
-            </Text>
-          </Text>
-          <Text style={[styles.text, styles.reps]}>
-            {set.reps}{' '}
-            <Text style={[styles.unit, { color: theme.colors.secondaryText }]}>
-              {i18n.t('reps.unit', { count: set.reps })}{' '}
-            </Text>
-          </Text>
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View
+        style={[
+          styles.item,
+          isSelected && { backgroundColor: theme.colors.selected },
+        ]}
+      >
+        <View style={styles.leftContent}>
+          <Text style={[styles.text, styles.index]}>{index}.</Text>
+          <Icon
+            name="trophy"
+            size={24}
+            color={
+              maxSetType === 'maxRep'
+                ? theme.colors.trophyReps
+                : theme.colors.trophy
+            }
+            style={[styles.icon, !maxSetType && styles.notMax]}
+          />
         </View>
-      </TouchableWithoutFeedback>
-    );
-  }
-}
+        <Text style={[styles.text, styles.weight]}>
+          {unit === 'metric'
+            ? toTwoDecimals(set.weight)
+            : toTwoDecimals(toLb(set.weight))}{' '}
+          <Text style={[styles.unit, { color: theme.colors.secondaryText }]}>
+            {unit === 'metric'
+              ? i18n.t('kg.unit', { count: set.weight })
+              : i18n.t('lb')}{' '}
+          </Text>
+        </Text>
+        <Text style={[styles.text, styles.reps]}>
+          {set.reps}{' '}
+          <Text style={[styles.unit, { color: theme.colors.secondaryText }]}>
+            {i18n.t('reps.unit', { count: set.reps })}{' '}
+          </Text>
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   item: {
@@ -112,4 +119,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(EditSetItem);
+export default withTheme(
+  memo(EditSetItem, (prevProps, nextProps) => {
+    if (
+      prevProps.isSelected !== nextProps.isSelected ||
+      prevProps.maxSetType !== nextProps.maxSetType ||
+      prevProps.onPressItem !== nextProps.onPressItem ||
+      prevProps.index !== nextProps.index ||
+      prevProps.unit !== nextProps.unit ||
+      prevProps.theme !== nextProps.theme
+    ) {
+      return false;
+    }
+
+    return (
+      // Doing it like this because of Realm
+      JSON.stringify(prevProps.set) === JSON.stringify(nextProps.set)
+    );
+  })
+);

@@ -13,31 +13,39 @@ import {
   getToday,
 } from '../../utils/date';
 import { getWorkoutsByRange } from '../../database/services/WorkoutService';
-import useRealmResultsHook from '../../components/useRealmResultsHook';
+import useRealmResultsHook from '../../hooks/useRealmResultsHook';
 import type { WorkoutSchemaType } from '../../database/types';
 import { groupWorkoutsByWeek } from '../../utils/statistics';
+import { useSelector } from 'react-redux';
 
 type Props = {
   theme: ThemeType,
 };
 
 const WorkoutTimesChart = ({ theme }: Props) => {
+  const firstDayOfTheWeek = useSelector(
+    state => state.settings.firstDayOfTheWeek
+  );
   const today = formatDate(getToday(), 'YYYYMMDD');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const lastWeeks = useMemo(() => getLastWeeks(5), [today]);
+  const lastWeeks = useMemo(() => getLastWeeks(5), [today, firstDayOfTheWeek]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const endOfTheWeek = useMemo(() => getEndOfTheWeek(), [today]);
-  const { data: workouts, timestamp } = useRealmResultsHook<WorkoutSchemaType>(
-    useCallback(() => getWorkoutsByRange(lastWeeks[0], endOfTheWeek, true), [
-      endOfTheWeek,
-      lastWeeks,
-    ])
-  );
+  const endOfTheWeek = useMemo(() => getEndOfTheWeek(), [
+    today,
+    firstDayOfTheWeek,
+  ]);
+  const { data: workouts, timestamp } = useRealmResultsHook<WorkoutSchemaType>({
+    query: useCallback(
+      () => getWorkoutsByRange(lastWeeks[0], endOfTheWeek, true),
+      [endOfTheWeek, lastWeeks]
+    ),
+  });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const groups = useMemo(() => groupWorkoutsByWeek(workouts, lastWeeks), [
     workouts,
     timestamp, // Workouts by Realm it's mutated so we can use timestamp instead
     lastWeeks,
+    firstDayOfTheWeek,
   ]);
   const maxDays = useMemo(() => max(groups), [groups]);
 

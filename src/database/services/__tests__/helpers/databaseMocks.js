@@ -18,6 +18,8 @@ export class RealmArray extends Array<any> {
   push: (val: any) => number = jest.fn();
   // eslint-disable-next-line flowtype/no-weak-types
   addListener: (val: any) => void = jest.fn();
+  // $FlowFixMe
+  isValid = jest.fn();
 }
 
 export const MockRealmArray = RealmArray;

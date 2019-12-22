@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import Screen from '../../components/Screen';
 import type { NavigationType, RealmResults } from '../../types';
-import HeaderIconButton from '../../components/HeaderIconButton';
+import HeaderIconButton from '../../components/Header/HeaderIconButton';
 import { firstDayOfTheWeekToNumber, formatDate } from '../../utils/date';
 import { getAllWorkouts } from '../../database/services/WorkoutService';
 import type { WorkoutSchemaType } from '../../database/types';

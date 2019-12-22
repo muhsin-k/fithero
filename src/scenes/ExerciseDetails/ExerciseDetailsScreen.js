@@ -1,12 +1,11 @@
 /* @flow */
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Paragraph, Caption, Title } from 'react-native-paper';
 import { exercises } from 'fithero-exercises';
 import memoize from 'lodash/memoize';
 
-import DataProvider from '../../components/DataProvider';
 import {
   deleteExercise,
   getExerciseById,
@@ -15,13 +14,14 @@ import {
 import type { ExerciseSchemaType } from '../../database/types';
 import { getExerciseMuscleName, getExerciseName } from '../../utils/exercises';
 import i18n from '../../utils/i18n';
-import HeaderIconButton from '../../components/HeaderIconButton';
-import HeaderOverflowButton from '../../components/HeaderOverflowButton';
+import HeaderIconButton from '../../components/Header/HeaderIconButton';
+import HeaderOverflowButton from '../../components/Header/HeaderOverflowButton';
 import type { NavigationType } from '../../types';
 import DeleteWarningDialog from '../../components/DeleteWarningDialog';
 import Screen from '../../components/Screen';
 import type { AppThemeType } from '../../redux/modules/settings';
 import { getDefaultNavigationOptions } from '../../utils/navigation';
+import useRealmResultsHook from '../../hooks/useRealmResultsHook';
 
 const getExercise = memoize(id => exercises.find(e => e.id === id));
 
@@ -41,71 +41,49 @@ type NavigationOptions = NavigationObjectType & {
 
 type Props = NavigationObjectType & {};
 
-type State = {
-  showDeleteDialog: boolean,
-  isDeleting: boolean,
-};
+const ExerciseDetailsScreen = (props: Props) => {
+  const { navigation } = props;
+  const { params = {} } = props.navigation.state;
+  const id = params.id;
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-class ExerciseDetailsScreen extends React.Component<Props, State> {
-  static navigationOptions = ({
-    navigation,
-    screenProps,
-  }: NavigationOptions) => {
-    const { params = {} } = navigation.state;
+  useEffect(() => {
+    navigation.setParams({
+      editAction: () => {
+        navigation.navigate('EditExercise', {
+          id,
+        });
+      },
+    });
+    navigation.setParams({ deleteAction: () => setShowDeleteDialog(true) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    return {
-      ...getDefaultNavigationOptions(screenProps.theme),
-      headerRight: isCustomExercise(params.id) ? (
-        <View style={styles.toolbarActions}>
-          <HeaderIconButton onPress={() => params.editAction()} icon="edit" />
-          <HeaderOverflowButton
-            onPress={i => params.deleteAction(i)}
-            actions={[i18n.t('delete')]}
-            destructiveButtonIndex={1}
-            last
-          />
-        </View>
-      ) : (
-        undefined
-      ),
-    };
-  };
+  useEffect(() => {
+    if (isDeleting) {
+      deleteExercise(id);
+      navigation.goBack();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, isDeleting]);
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      showDeleteDialog: false,
-      isDeleting: false,
-    };
+  const { data: customExercises } = useRealmResultsHook<ExerciseSchemaType>({
+    query: useCallback(() => {
+      if (isCustomExercise(id)) {
+        return getExerciseById(id);
+      }
+    }, [id]),
+  });
 
-    this.props.navigation.setParams({ editAction: this._editExercise });
-    this.props.navigation.setParams({ deleteAction: this._showDeleteWarning });
+  const exercise =
+    customExercises.length > 0 ? customExercises[0] : getExercise(id);
+
+  if (isDeleting) {
+    return null;
   }
 
-  _editExercise = () => {
-    this.props.navigation.navigate('EditExercise', {
-      id: this.props.navigation.state.params.id,
-    });
-  };
-
-  _showDeleteWarning = (index: number) => {
-    if (index === 0) {
-      this.setState({ showDeleteDialog: true });
-    }
-  };
-
-  _hideDeleteWarning = () => {
-    this.setState({ showDeleteDialog: false });
-  };
-
-  _deleteExercise = () => {
-    this.setState({ isDeleting: true }, () => {
-      deleteExercise(this.props.navigation.state.params.id);
-      this.props.navigation.goBack();
-    });
-  };
-
-  _renderBody = exercise => (
+  return (
     <Screen style={styles.screen}>
       <ScrollView>
         <React.Fragment>
@@ -140,40 +118,40 @@ class ExerciseDetailsScreen extends React.Component<Props, State> {
           <DeleteWarningDialog
             title={i18n.t('delete__exercise_title')}
             description={i18n.t('delete__exercise_description')}
-            onConfirm={this._deleteExercise}
-            onDismiss={this._hideDeleteWarning}
-            visible={this.state.showDeleteDialog}
+            onConfirm={() => setIsDeleting(true)}
+            onDismiss={() => setShowDeleteDialog(false)}
+            visible={showDeleteDialog}
           />
         </React.Fragment>
       </ScrollView>
     </Screen>
   );
+};
 
-  render() {
-    if (this.state.isDeleting) {
-      return null;
-    }
+ExerciseDetailsScreen.navigationOptions = ({
+  navigation,
+  screenProps,
+}: NavigationOptions) => {
+  const { params = {} } = navigation.state;
 
-    const { params = {} } = this.props.navigation.state;
-    const id = params.id;
-    if (isCustomExercise(id)) {
-      return (
-        <DataProvider
-          query={getExerciseById}
-          args={[id]}
-          parse={(data: Array<ExerciseSchemaType>) =>
-            data.length > 0 ? data[0] : null
-          }
-          render={(exercise: ?ExerciseSchemaType) =>
-            exercise ? this._renderBody(exercise) : null
-          }
+  return {
+    ...getDefaultNavigationOptions(screenProps.theme),
+    headerRight: isCustomExercise(params.id) ? (
+      <View style={styles.toolbarActions}>
+        <HeaderIconButton onPress={() => params.editAction()} icon="edit" />
+        <HeaderOverflowButton
+          onPress={i => params.deleteAction(i)}
+          actions={[i18n.t('delete')]}
+          destructiveButtonIndex={1}
+          last
         />
-      );
-    }
+      </View>
+    ) : (
+      undefined
+    ),
+  };
+};
 
-    return this._renderBody(getExercise(id));
-  }
-}
 const styles = StyleSheet.create({
   toolbarActions: {
     flexDirection: 'row',

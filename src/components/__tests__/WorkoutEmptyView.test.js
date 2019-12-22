@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { render } from 'react-native-testing-library';
 
-import WorkoutEmptyView from '../WorkoutEmptyView';
+import WorkoutEmptyView from '../Workouts/WorkoutEmptyView';
 import {
   MockRealmArray,
   mockWorkouts,

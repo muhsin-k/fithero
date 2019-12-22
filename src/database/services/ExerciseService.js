@@ -50,7 +50,7 @@ export const editExercise = (newExercise: ExerciseSchemaType) => {
 export const getAllExercises = (): RealmResults<ExerciseSchemaType> =>
   realm.objects(EXERCISE_SCHEMA_NAME);
 
-export const getExerciseById = (id: string): RealmResults<ExerciseSchemaType> =>
+export const getExerciseById = (id: string) =>
   realm.objects(EXERCISE_SCHEMA_NAME).filtered(`id = $0`, id);
 
 export const deleteExercise = (id: string) => {

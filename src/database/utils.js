@@ -1,6 +1,10 @@
 /* @flow */
 
-import type { ExerciseSchemaType, WorkoutSchemaType } from './types';
+import type {
+  ExerciseSchemaType,
+  WorkoutExerciseSchemaType,
+  WorkoutSchemaType,
+} from './types';
 import type { RealmResults } from '../types';
 import { dateToWorkoutId } from '../utils/date';
 
@@ -44,6 +48,17 @@ export const deserializeWorkouts = (
       exercises,
     };
   });
+};
+
+export const deserializeWorkoutExercise = (
+  exercise: WorkoutExerciseSchemaType
+): WorkoutExerciseSchemaType => {
+  const sets = Object.values(JSON.parse(JSON.stringify(exercise.sets)));
+  // $FlowFixMe
+  return {
+    ...exercise,
+    sets,
+  };
 };
 
 export const deserializeExercises = (

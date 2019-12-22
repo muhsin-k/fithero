@@ -3,23 +3,27 @@
 import * as React from 'react';
 import { render } from 'react-native-testing-library';
 import moment from 'moment';
+import { Provider } from 'react-redux';
 
 import DayRow from '../DayRow';
 import {
+  dateToWorkoutId,
   getCurrentWeek,
   setMomentFirstDayOfTheWeek,
 } from '../../../utils/date';
+import { createStore } from 'redux';
 
 describe('DayRow', () => {
   const getRender = (day: string) => {
     const currentWeek = getCurrentWeek(moment(day).startOf('day'));
     return render(
-      <DayRow
-        currentWeek={currentWeek}
-        workouts={{}}
-        onDaySelected={jest.fn()}
-        selected={day}
-      />
+      <Provider
+        store={createStore(() => ({
+          home: { selectedDay: dateToWorkoutId(day) },
+        }))}
+      >
+        <DayRow currentWeek={currentWeek} />
+      </Provider>
     );
   };
 

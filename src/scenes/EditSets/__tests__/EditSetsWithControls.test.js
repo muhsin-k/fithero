@@ -29,7 +29,7 @@ jest.mock('../../../database/services/WorkoutSetService', () => ({
 
 jest.mock('../../../database/services/WorkoutExerciseService');
 
-jest.mock('../../../components/useKeyboard');
+jest.mock('../../../hooks/useKeyboard');
 
 const date = toDate('2018-05-01T00:00:00.000Z');
 

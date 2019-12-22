@@ -13,8 +13,8 @@ import {
   editExercise,
   getExerciseById,
 } from '../../database/services/ExerciseService';
-import HeaderButton from '../../components/HeaderButton';
-import HeaderIconButton from '../../components/HeaderIconButton';
+import HeaderButton from '../../components/Header/HeaderButton';
+import HeaderIconButton from '../../components/Header/HeaderIconButton';
 import type { NavigationType } from '../../types';
 import Screen from '../../components/Screen';
 import { getDefaultNavigationOptions } from '../../utils/navigation';

@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Subheading, Title } from 'react-native-paper';
 
-import { whenIsTheDay } from '../utils/date';
-import i18n from '../utils/i18n';
-import { getAllWorkouts } from '../database/services/WorkoutService';
-import type { WorkoutSchemaType } from '../database/types';
-import type { RealmResults } from '../types';
+import { whenIsTheDay } from '../../utils/date';
+import i18n from '../../utils/i18n';
+import { getAllWorkouts } from '../../database/services/WorkoutService';
+import type { WorkoutSchemaType } from '../../database/types';
+import type { RealmResults } from '../../types';
 
 type Props = {
   dayString: string,

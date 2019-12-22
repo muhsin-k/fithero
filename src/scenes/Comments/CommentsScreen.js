@@ -17,7 +17,7 @@ import {
   getWorkoutComments,
   setWorkoutComments,
 } from '../../database/services/WorkoutService';
-import HeaderButton from '../../components/HeaderButton';
+import HeaderButton from '../../components/Header/HeaderButton';
 import type { NavigationType } from '../../types';
 import type { ThemeType } from '../../utils/theme/withTheme';
 import Screen from '../../components/Screen';

@@ -9,6 +9,8 @@ import theme from '../../../utils/theme';
 import WorkoutTimesChart from '../WorkoutTimesChart';
 import { toDate } from '../../../utils/date';
 import { RealmArray } from '../../../database/services/__tests__/helpers/databaseMocks';
+import { Provider } from 'react-redux';
+import store from '../../../redux/configureStore';
 
 jest.mock('react-native-charts-wrapper');
 jest.mock('../../../database/services/WorkoutService', () => ({
@@ -53,7 +55,11 @@ describe('WorkoutTimesChart', () => {
   mockMoment.locale('en');
 
   it('renders chart props correctly', () => {
-    const { queryByType } = render(<WorkoutTimesChart theme={theme} />);
+    const { queryByType } = render(
+      <Provider store={store}>
+        <WorkoutTimesChart theme={theme} />
+      </Provider>
+    );
     const barChart = queryByType(BarChart);
 
     expect(barChart.props.data.dataSets[0].values).toEqual([

@@ -1,6 +1,6 @@
 /* @flow */
 
-import * as React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
@@ -10,49 +10,33 @@ import {
   dateToWorkoutId,
   getDatePrettyFormat,
   getToday,
-  isSameDay,
 } from '../../utils/date';
-import type { WorkoutSchemaType } from '../../database/types';
+import { useSelector } from 'react-redux';
 
-type Props = {
+type Props = {|
   currentWeek: Array<Date>,
-  onDaySelected: string => void,
-  selected: string,
-  workouts: { [date: string]: WorkoutSchemaType },
-};
+|};
 
-class DayRow extends React.Component<Props> {
-  _onDaySelected = dateString => {
-    this.props.onDaySelected(dateString);
-  };
+const DayRow = (props: Props) => {
+  const { currentWeek } = props;
+  const selectedDay = useSelector(state => state.home.selectedDay);
 
-  _renderDays() {
-    return this.props.currentWeek.map(d => {
-      const isSelected = isSameDay(d, this.props.selected);
+  const renderDays = useMemo(() => {
+    return currentWeek.map(d => {
       const dateString = dateToWorkoutId(d);
-      return (
-        <DayItem
-          key={dateString}
-          dateString={dateString}
-          isSelected={isSelected}
-          onDaySelected={this._onDaySelected}
-          isWorkout={!!this.props.workouts[dateString]}
-        />
-      );
+      return <DayItem key={dateString} dateString={dateString} />;
     });
-  }
+  }, [currentWeek]);
 
-  render() {
-    return (
-      <React.Fragment>
-        <Text style={styles.title}>
-          {getDatePrettyFormat(this.props.selected, dateToString(getToday()))}
-        </Text>
-        <View style={styles.row}>{this._renderDays()}</View>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <>
+      <Text style={styles.title}>
+        {getDatePrettyFormat(selectedDay, dateToString(getToday()))}
+      </Text>
+      <View style={styles.row}>{renderDays}</View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   row: {

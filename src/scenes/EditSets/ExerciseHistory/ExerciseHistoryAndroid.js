@@ -10,7 +10,9 @@ type Props = {
   type: 'string',
   unit: DefaultUnitSystemType,
   navigation: NavigationType<{
+    day: string,
     exerciseKey: string,
+    exerciseName?: string,
   }>,
 };
 

@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import withTheme from '../utils/theme/withTheme';
-import type { ThemeType } from '../utils/theme/withTheme';
+import withTheme from '../../utils/theme/withTheme';
+import type { ThemeType } from '../../utils/theme/withTheme';
 
 type Props = {
   children: string,

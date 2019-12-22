@@ -22,6 +22,11 @@ type Props = {|
 |};
 
 const PersonalRecordItem = ({ theme, set, unit, trophyColor, last }: Props) => {
+  // $FlowFixMe type it better
+  if (!set.isValid()) {
+    return null;
+  }
+
   const { colors } = theme;
   const unitText =
     unit === 'metric'

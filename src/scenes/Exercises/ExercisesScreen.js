@@ -22,7 +22,7 @@ import i18n from '../../utils/i18n';
 import { getExerciseName, searchExerciseByName } from '../../utils/exercises';
 import type { ThemeType } from '../../utils/theme/withTheme';
 import withTheme from '../../utils/theme/withTheme';
-import HeaderIconButton from '../../components/HeaderIconButton';
+import HeaderIconButton from '../../components/Header/HeaderIconButton';
 import type {
   ExerciseSchemaType,
   WorkoutExerciseSchemaType,

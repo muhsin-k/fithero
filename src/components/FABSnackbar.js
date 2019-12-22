@@ -13,6 +13,9 @@ type Props = {
   snackbarText: string,
 };
 
+const animationDuration = 200;
+const useNativeDriver = true;
+
 const FABSnackbar = ({
   show,
   onFabPress,
@@ -27,15 +30,15 @@ const FABSnackbar = ({
     if (!snackbarVisible && show) {
       Animated.timing(fabAnimatedValue, {
         toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
+        duration: animationDuration,
+        useNativeDriver,
       }).start();
       setSnackbarVisible(true);
     } else if (snackbarVisible && !show) {
       Animated.timing(fabAnimatedValue, {
         toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
+        duration: animationDuration,
+        useNativeDriver,
       }).start();
       setSnackbarVisible(false);
     }
