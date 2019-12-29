@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import { Keyboard, StyleSheet, View } from 'react-native';
+import { Keyboard, PixelRatio, StyleSheet, View } from 'react-native';
 import TabbedViewPager from 'react-native-tabbed-view-pager-android';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
 
@@ -62,7 +62,9 @@ class EditSetsNavigator extends React.Component<Props, State> {
       tabNames: [
         getDatePrettyFormat(
           props.navigation.state.params.day,
-          dateToString(getToday())
+          dateToString(getToday()),
+          PixelRatio.get() < 2,
+          true
         ),
         i18n.t('history'),
       ],

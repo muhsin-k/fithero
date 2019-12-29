@@ -57,21 +57,28 @@ export const toDate = (dateString: string) => moment(dateString).toDate();
 export const getDatePrettyFormat = (
   dateString: Date | string,
   today: string,
-  short: boolean = false
+  shortDay: boolean = false,
+  shortMonth: boolean = false
 ) => {
   const date = moment(dateString);
   const isToday = date.isSame(moment(today), 'day');
   const isYesterday = date.isSame(moment(today).subtract(1), 'day');
 
   if (isToday) {
-    return `${i18n.t('today')}${!short ? `, ${date.format('MMMM D')}` : ''}`;
-  }
-  if (isYesterday) {
-    return `${i18n.t('yesterday')}${
-      !short ? `, ${date.format('MMMM D')}` : ''
+    return `${i18n.t('today')}${
+      !shortDay ? `, ${date.format(`${!shortMonth ? 'MMMM' : 'MMM'} D`)}` : ''
     }`;
   }
-  return date.format(`${!short ? 'dddd' : 'ddd'}, MMMM D`);
+
+  if (isYesterday) {
+    return `${i18n.t('yesterday')}${
+      !shortDay ? `, ${date.format(`${!shortMonth ? 'MMMM' : 'MMM'} D`)}` : ''
+    }`;
+  }
+
+  return date.format(
+    `${!shortDay ? 'dddd' : 'ddd'}, ${!shortMonth ? 'MMMM' : 'MMM'} D`
+  );
 };
 
 export const getDay = (day: string) =>

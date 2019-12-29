@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import { SegmentedControlIOS, StyleSheet } from 'react-native';
+import { PixelRatio, SegmentedControlIOS, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import EditSetsScreen from './EditSetsScreen';
@@ -67,7 +67,9 @@ class EditSetsNavigator extends React.Component<Props, State> {
           values={[
             getDatePrettyFormat(
               navigation.state.params.day,
-              dateToString(getToday())
+              dateToString(getToday()),
+              PixelRatio.get() < 3,
+              true
             ),
             i18n.t('history'),
           ]}
