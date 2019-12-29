@@ -80,7 +80,11 @@ WorkoutDayScreen.navigationOptions = ({
     title: getDatePrettyFormat(params.day, getToday(), true),
     headerRight: (
       <HeaderOverflowButton
-        actions={[i18n.t('comment_workout'), i18n.t('share_workout')]}
+        actions={[
+          i18n.t('comment_workout'),
+          i18n.t('share_workout'),
+          i18n.t('copy_workout'),
+        ]}
         onPress={handleToolbarMenu}
         last
       />

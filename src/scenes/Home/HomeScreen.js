@@ -122,15 +122,17 @@ HomeScreen.navigationOptions = ({
       today: getToday().format('YYYY-MM-DD'),
     });
   };
-  const { params = {} } = navigation.state;
   return {
     ...getDefaultNavigationOptions(screenProps.theme),
     headerRight: (
       <View style={styles.headerButtons}>
         <HeaderIconButton icon="date-range" onPress={navigateToCalendar} />
         <HomeOverflowButton
-          actions={[i18n.t('comment_workout'), i18n.t('share_workout')]}
-          onPress={params.handleToolbarMenu}
+          actions={[
+            i18n.t('comment_workout'),
+            i18n.t('share_workout'),
+            i18n.t('copy_workout'),
+          ]}
           last
         />
       </View>

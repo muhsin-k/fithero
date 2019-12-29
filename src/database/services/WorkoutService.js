@@ -13,10 +13,16 @@ import {
 import { WORKOUT_SCHEMA_NAME } from '../schemas/WorkoutSchema';
 
 export const getAllWorkouts = (): RealmResults<WorkoutSchemaType> =>
-  realm.objects('Workout');
+  realm.objects(WORKOUT_SCHEMA_NAME);
 
 export const getAllWorkoutsWithExercises = () =>
-  realm.objects('Workout').filtered('exercises.@count > 0');
+  realm.objects(WORKOUT_SCHEMA_NAME).filtered('exercises.@count > 0');
+
+export const getAllWorkoutsWithExercisesSortedByDate = () =>
+  realm
+    .objects(WORKOUT_SCHEMA_NAME)
+    .filtered('exercises.@count > 0')
+    .sorted([['date', true]]);
 
 export const getWorkoutsByRange = (
   start: Date,
@@ -24,7 +30,7 @@ export const getWorkoutsByRange = (
   onlyWithExercises: boolean = false
 ) =>
   realm
-    .objects('Workout')
+    .objects(WORKOUT_SCHEMA_NAME)
     .filtered(
       `date >= $0 AND date <= $1${
         onlyWithExercises ? ' AND exercises.@count > 0' : ''
@@ -34,7 +40,10 @@ export const getWorkoutsByRange = (
     );
 
 export const getWorkoutById = (id: string) =>
-  realm.objects('Workout').filtered(`id = $0`, id);
+  realm.objects(WORKOUT_SCHEMA_NAME).filtered(`id = $0`, id);
+
+export const getWorkoutByPrimaryKey = (id: string) =>
+  realm.objectForPrimaryKey(WORKOUT_SCHEMA_NAME, id);
 
 export const getWorkoutsThisWeek = () => {
   const [start, end] = getFirstAndLastWeekday(getToday());

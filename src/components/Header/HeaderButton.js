@@ -6,21 +6,31 @@ import { Button, Text } from 'react-native-paper';
 import withTheme from '../../utils/theme/withTheme';
 import type { ThemeType } from '../../utils/theme/withTheme';
 
-type Props = {
+type Props = {|
   children: string,
   onPress: () => void,
   theme: ThemeType,
-};
+  disabled?: boolean,
+|};
 
 class HeaderButton extends React.Component<Props> {
   render() {
-    const { onPress } = this.props;
-    const { accent, toolbarTint } = this.props.theme.colors;
+    const { disabled, onPress } = this.props;
+    const {
+      disabled: disabledColor,
+      accent,
+      toolbarTint,
+    } = this.props.theme.colors;
 
     if (Platform.OS === 'ios') {
       return (
-        <TouchableOpacity onPress={onPress}>
-          <Text style={[styles.text, { color: toolbarTint }]}>
+        <TouchableOpacity onPress={onPress} disabled={disabled}>
+          <Text
+            style={[
+              styles.text,
+              { color: disabled ? disabledColor : toolbarTint },
+            ]}
+          >
             {this.props.children}
           </Text>
         </TouchableOpacity>
@@ -33,6 +43,7 @@ class HeaderButton extends React.Component<Props> {
         mode="contained"
         color={accent}
         style={styles.right}
+        disabled={disabled}
       >
         {this.props.children}
       </Button>

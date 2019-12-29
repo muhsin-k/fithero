@@ -4,11 +4,15 @@ interface RealmObject {
   isValid: () => boolean;
 }
 
-export type WorkoutSchemaType = {|
+export type AddWorkoutSchemaType = {|
   id: string,
   date: Date,
   comments?: string,
   exercises: Array<WorkoutExerciseSchemaType>,
+|};
+
+export type WorkoutSchemaType = {|
+  ...AddWorkoutSchemaType,
   isValid: () => boolean,
 |};
 

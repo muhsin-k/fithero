@@ -9,6 +9,7 @@ import FABSnackbar from '../FABSnackbar';
 import i18n from '../../utils/i18n';
 import WorkoutComments from './WorkoutComments';
 import type { WorkoutSchemaType } from '../../database/types';
+import Screen from '../Screen';
 
 type Props = {|
   workout: ?WorkoutSchemaType,
@@ -66,7 +67,7 @@ const WorkoutScreen = (props: Props) => {
   }, [ListHeaderComponent, workout]);
 
   return (
-    <>
+    <Screen>
       <WorkoutList
         contentContainerStyle={contentContainerStyle}
         workout={workout && workout.isValid() ? workout : null}
@@ -82,7 +83,7 @@ const WorkoutScreen = (props: Props) => {
         snackbarText={i18n.t('share_workout__empty')}
         onFabPress={onAddExercises}
       />
-    </>
+    </Screen>
   );
 };
 

@@ -6,6 +6,9 @@
   "cancel": "Cancel",
   "calendar": "Calendar",
   "comment_workout": "Comment workout",
+  "copy_workout": "Copy workout",
+  "copy_workout_button": "Copy workout",
+  "copy_to": "Copy to",
   "dark_theme": "Dark theme",
   "day__monday": "Monday",
   "day__sunday": "Sunday",
@@ -84,5 +87,6 @@
   "workouts_per_week": "Workouts per week",
   "workout_notes": "Workout notes",
   "workout_comment__placeholder": "Add a memorable comment here...",
-  "update": "Update"
+  "update": "Update",
+  "yesterday": "Yesterday"
 }

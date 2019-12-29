@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`copyWorkout copies a workout into an empty day 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+  Object {
+-   "date": 2018-05-04T00:00:00.000Z,
++   "date": 2019-12-28T00:00:00.000Z,
+    "exercises": Array [
+      Object {
+-       "date": 2018-05-04T00:00:00.000Z,
+-       "id": "20180504_bench-press",
+-       "isValid": [Function isValid],
++       "date": 2019-12-28T00:00:00.000Z,
++       "id": "20191228_bench-press",
+        "sets": Array [
+          Object {
+-           "date": 2018-05-04T00:00:00.000Z,
+-           "id": "20180504_bench-press_001",
++           "date": 2019-12-28T00:00:00.000Z,
++           "id": "20191228_bench-press_001",
+            "reps": 5,
+            "type": "bench-press",
+            "weight": 100,
+          },
+        ],
+        "sort": 1,
+        "type": "bench-press",
+        "weight_unit": "metric",
+      },
+      Object {
+-       "date": 2018-05-04T00:00:00.000Z,
+-       "id": "20180504_barbell-squat",
+-       "isValid": [Function isValid],
++       "date": 2019-12-28T00:00:00.000Z,
++       "id": "20191228_barbell-squat",
+        "sets": Array [
+          Object {
+-           "date": 2018-05-04T00:00:00.000Z,
+-           "id": "20180504_barbell-squat_004",
++           "date": 2019-12-28T00:00:00.000Z,
++           "id": "20191228_barbell-squat_001",
+            "reps": 5,
+            "type": "barbell-squat",
+            "weight": 120,
+          },
+          Object {
+-           "date": 2018-05-04T00:00:00.000Z,
+-           "id": "20180504_barbell-squat_001",
++           "date": 2019-12-28T00:00:00.000Z,
++           "id": "20191228_barbell-squat_002",
+            "reps": 4,
+            "type": "barbell-squat",
+            "weight": 120,
+          },
+        ],
+        "sort": 2,
+        "type": "barbell-squat",
+        "weight_unit": "metric",
+      },
+    ],
+-   "id": "20180504",
+-   "isValid": [Function isValid],
++   "id": "20191228",
+  }
+`;
+
+exports[`copyWorkout merges a previous workout into a non-empty day 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -18,13 +18,44 @@
+            "id": "20191228_barbell-squat_001",
+            "reps": 2,
+            "type": "barbell-squat",
+            "weight": 150,
+          },
++         Object {
++           "date": 2019-12-28T00:00:00.000Z,
++           "id": "20191228_barbell-squat_004",
++           "reps": 5,
++           "type": "barbell-squat",
++           "weight": 120,
++         },
++         Object {
++           "date": 2019-12-28T00:00:00.000Z,
++           "id": "20191228_barbell-squat_005",
++           "reps": 4,
++           "type": "barbell-squat",
++           "weight": 120,
++         },
+        ],
+        "sort": 1,
+        "type": "barbell-squat",
++       "weight_unit": "metric",
++     },
++     Object {
++       "date": 2019-12-28T00:00:00.000Z,
++       "id": "20191228_bench-press",
++       "isValid": [Function isValid],
++       "sets": Array [
++         Object {
++           "date": 2019-12-28T00:00:00.000Z,
++           "id": "20191228_bench-press_001",
++           "reps": 5,
++           "type": "bench-press",
++           "weight": 100,
++         },
++       ],
++       "sort": 2,
++       "type": "bench-press",
+        "weight_unit": "metric",
+      },
+    ],
+    "id": "20191228",
+    "isValid": [Function isValid],
+`;
+
+exports[`copyWorkout merges a previous workout into a non-empty day 2`] = `
+Array [
+  Object {
+    "date": 2019-12-28T00:00:00.000Z,
+    "id": "20191228_barbell-squat_003",
+    "reps": 3,
+    "type": "barbell-squat",
+    "weight": 150,
+  },
+  Object {
+    "date": 2019-12-28T00:00:00.000Z,
+    "id": "20191228_barbell-squat_001",
+    "reps": 2,
+    "type": "barbell-squat",
+    "weight": 150,
+  },
+  Object {
+    "date": 2019-12-28T00:00:00.000Z,
+    "id": "20191228_barbell-squat_004",
+    "reps": 5,
+    "type": "barbell-squat",
+    "weight": 120,
+  },
+  Object {
+    "date": 2019-12-28T00:00:00.000Z,
+    "id": "20191228_barbell-squat_005",
+    "reps": 4,
+    "type": "barbell-squat",
+    "weight": 120,
+  },
+]
+`;

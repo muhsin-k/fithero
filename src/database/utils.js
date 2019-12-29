@@ -1,5 +1,7 @@
 /* @flow */
 
+import maxBy from 'lodash/maxBy';
+
 import type {
   ExerciseSchemaType,
   WorkoutExerciseSchemaType,
@@ -30,23 +32,33 @@ export const extractExerciseKeyFromDatabase = (id: string) => id.split('_')[1];
 export const extractSetIndexFromDatabase = (id: string) =>
   parseInt(id.split('_')[2], 10);
 
+export const deserializeWorkout = (
+  workout: WorkoutSchemaType,
+  stringify: boolean = true
+) => {
+  const w: WorkoutSchemaType = stringify
+    ? JSON.parse(JSON.stringify(workout))
+    : workout;
+  let exercises = Object.values(w.exercises);
+  const hasExercises = exercises.length > 0;
+  if (hasExercises) {
+    exercises.forEach(exercise => {
+      // $FlowFixMe
+      exercise.sets = Object.values(exercise.sets);
+    });
+  }
+  return {
+    ...w,
+    exercises,
+  };
+};
+
 export const deserializeWorkouts = (
   workouts: RealmResults<WorkoutSchemaType>
 ): Array<WorkoutSchemaType> => {
   return Object.values(JSON.parse(JSON.stringify(workouts))).map(w => {
     // $FlowFixMe
-    let exercises = Object.values(w.exercises);
-    const hasExercises = exercises.length > 0;
-    if (hasExercises) {
-      exercises.forEach(exercise => {
-        // $FlowFixMe
-        exercise.sets = Object.values(exercise.sets);
-      });
-    }
-    return {
-      ...w,
-      exercises,
-    };
+    return deserializeWorkout(w, false);
   });
 };
 
@@ -71,4 +83,9 @@ export const deserializeExercises = (
     // $FlowFixMe
     secondary: Object.values(e.secondary),
   }));
+};
+
+export const getNextSetIndex = (exercise: WorkoutExerciseSchemaType) => {
+  const lastSetId = maxBy(exercise.sets, 'id');
+  return extractSetIndexFromDatabase(lastSetId.id);
 };

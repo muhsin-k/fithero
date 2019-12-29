@@ -13,12 +13,16 @@ import i18n from '../../utils/i18n';
 
 export type HeaderOverflowButtonProps = {|
   actions: Array<string>,
-  onPress: (index: number) => mixed,
   destructiveButtonIndex?: number,
   last?: boolean,
 |};
 
-class HeaderOverflowButton extends React.Component<HeaderOverflowButtonProps> {
+type Props = {|
+  ...HeaderOverflowButtonProps,
+  onPress: (index: number) => mixed,
+|};
+
+class HeaderOverflowButton extends React.Component<Props> {
   menuRef: ?HeaderIconButton;
 
   _onPress = () => {

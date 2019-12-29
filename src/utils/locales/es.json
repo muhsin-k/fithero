@@ -6,6 +6,9 @@
     "cancel": "Cancelar",
     "calendar": "Calendario",
     "comment_workout": "Comentar la sesi\u00f3n",
+    "copy_workout": "Copiar una sesi\u00f3n",
+    "copy_workout_button": "Copiar la sesi\u00f3n",
+    "copy_to": "Copiar para",
     "dark_theme": "Modo oscuro",
     "day__monday": "Lunes",
     "day__sunday": "Domingo",
@@ -70,7 +73,7 @@
     "search": "Buscar",
     "sets": "Sets",
     "share_workout": "Compartir la sesión",
-    "share_workout__empty": "¡No hay nada que compartir aquí!",
+    "share_workout__empty": "\u00a1No hay nada que compartir aqu\u00ed!",
     "this_month": "Este mes",
     "this_week": "Esta semana",
     "today": "Hoy",
@@ -80,5 +83,6 @@
     "workouts_per_week": "Sesiones por semana",
     "workout_notes": "Notas para la sesi\u00f3n",
     "workout_comment__placeholder": "A\u00f1ade un comentario memorable aqu\u00ed...",
-    "update": "Actualizar"
+    "update": "Actualizar",
+    "yesterday": "Ayer"
 }

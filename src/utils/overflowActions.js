@@ -30,6 +30,10 @@ export const handleWorkoutToolbarMenu = async ({
       }
       break;
     }
+    case 2: {
+      navigate('CopyWorkout', { day: selectedDay });
+      break;
+    }
     default:
       break;
   }

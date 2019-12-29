@@ -9,8 +9,9 @@ import HomeNavigator from './scenes/HomeNavigator';
 import SettingsNavigator from './scenes/SettingsNavigator';
 import StatisticsNavigator from './scenes/StatisticsNavigator';
 import EditExerciseScreen from './scenes/EditExercise/EditExerciseScreen';
+import CopyWorkoutScreen from './scenes/CopyWorkout';
 
-const MainStack = createMaterialBottomTabNavigator(
+const TabsStack = createMaterialBottomTabNavigator(
   {
     Home: {
       screen: HomeNavigator,
@@ -38,6 +39,26 @@ const MainStack = createMaterialBottomTabNavigator(
     initialRouteName: 'Home',
     shifting: false,
     keyboardHidesNavigationBar: false,
+  }
+);
+
+const MainStack = createStackNavigator(
+  {
+    Tabs: {
+      screen: TabsStack,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    CopyWorkout: {
+      screen: CopyWorkoutScreen,
+      navigationOptions: {
+        title: null,
+      },
+    },
+  },
+  {
+    headerMode: 'screen',
   }
 );
 
