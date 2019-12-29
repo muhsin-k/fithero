@@ -3,6 +3,7 @@
 import { getWorkoutById } from '../database/services/WorkoutService';
 import { shareWorkout } from './share';
 import type { NavigateType } from '../types';
+import type { WorkoutSchemaType } from '../database/types';
 
 export const handleWorkoutToolbarMenu = async ({
   index,
@@ -21,9 +22,9 @@ export const handleWorkoutToolbarMenu = async ({
       break;
     }
     case 1: {
-      const workouts = getWorkoutById(selectedDay);
+      const workouts: Array<WorkoutSchemaType> = getWorkoutById(selectedDay);
       const workout = workouts.length > 0 ? workouts[0] : null;
-      if (workout) {
+      if (workout && workout.exercises.length > 0) {
         await shareWorkout(workout);
       } else {
         showSnackbar();
