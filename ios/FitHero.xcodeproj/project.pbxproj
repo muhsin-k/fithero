@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0053B4C5325E59683E8FC443 /* libPods-FitHero.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EE309CC7ACF0E665650D15E /* libPods-FitHero.a */; };
 		00E356F31AD99517003FC87E /* FitHeroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FitHeroTests.m */; };
@@ -893,7 +894,6 @@
 		6857D7752229AAA100B2A69E /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				EBD800C5C915497594E2FFB7 /* libRNGestureHandler.a */,
 				7E1FD7DC38DD4801AB91ACD9 /* libBugsnagReactNative.a */,
 				C370636EC37B4E5C84D5C410 /* libRNVectorIcons.a */,
 				6B94D9F35C8C4E9B8022EA97 /* libRealmReact.a */,
@@ -1869,7 +1869,7 @@
 				CODE_SIGN_ENTITLEMENTS = FitHero/FitHero.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = Y27P7K3K33;
 				HEADER_SEARCH_PATHS = (
@@ -1883,7 +1883,7 @@
 				);
 				INFOPLIST_FILE = FitHero/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1908,7 +1908,7 @@
 				CODE_SIGN_ENTITLEMENTS = FitHero/FitHero.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Y27P7K3K33;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1921,7 +1921,7 @@
 				);
 				INFOPLIST_FILE = FitHero/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
