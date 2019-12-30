@@ -10,6 +10,7 @@ import SettingsNavigator from './scenes/SettingsNavigator';
 import StatisticsNavigator from './scenes/StatisticsNavigator';
 import EditExerciseScreen from './scenes/EditExercise/EditExerciseScreen';
 import CopyWorkoutScreen from './scenes/CopyWorkout';
+import EditSetsScreen from './scenes/EditSets/EditSetsScreen';
 
 const TabsStack = createMaterialBottomTabNavigator(
   {
@@ -69,17 +70,21 @@ export default createAppContainer(
         screen: MainStack,
         navigationOptions: {
           header: null,
+          gesturesEnabled: false,
         },
       },
       EditExercise: {
         screen: EditExerciseScreen,
+        navigationOptions: {
+          gesturesEnabled: false,
+        },
+      },
+      EditSetsModal: {
+        screen: EditSetsScreen,
       },
     },
     {
       mode: 'modal',
-      defaultNavigationOptions: {
-        gesturesEnabled: false,
-      },
     }
   )
 );

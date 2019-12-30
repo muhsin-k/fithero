@@ -113,6 +113,7 @@ class EditSetsNavigator extends React.Component<Props, State> {
               const ContentComponent = getContentComponent(i);
               return (
                 <View key={i} style={styles.content}>
+                  {/* $FlowFixMe */}
                   <ContentComponent navigation={navigation} />
                 </View>
               );

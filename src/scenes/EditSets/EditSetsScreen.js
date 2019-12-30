@@ -2,6 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import Screen from '../../components/Screen';
@@ -12,17 +13,27 @@ import type { DefaultUnitSystemType } from '../../redux/modules/settings';
 import { getWorkoutExerciseById } from '../../database/services/WorkoutExerciseService';
 import useRealmResultsHook from '../../hooks/useRealmResultsHook';
 import type { WorkoutExerciseSchemaType } from '../../database/types';
+import { getDefaultNavigationOptions } from '../../utils/navigation';
+import { dateToString, getDatePrettyFormat, getToday } from '../../utils/date';
+import HeaderIconButton from '../../components/Header/HeaderIconButton';
+import { getExerciseName } from '../../utils/exercises';
 
 type Props = {
   navigation: NavigationType<{
     day: string,
     exerciseKey: string,
     exerciseName?: string,
+    isModal?: boolean,
   }>,
 };
 
 const EditSetsScreen = (props: Props) => {
-  const { day, exerciseKey } = props.navigation.state.params;
+  const {
+    day,
+    exerciseKey,
+    exerciseName,
+    isModal,
+  } = props.navigation.state.params;
   const defaultUnitSystem: DefaultUnitSystemType = useSelector(
     state => state.settings.defaultUnitSystem
   );
@@ -35,6 +46,11 @@ const EditSetsScreen = (props: Props) => {
 
   return (
     <Screen style={styles.container}>
+      {isModal && (
+        <Text style={styles.title}>
+          {getExerciseName(exerciseKey, exerciseName)}
+        </Text>
+      )}
       <EditSetsWithControls
         testID="edit-sets-with-controls"
         day={day}
@@ -46,9 +62,25 @@ const EditSetsScreen = (props: Props) => {
   );
 };
 
+EditSetsScreen.navigationOptions = ({ navigation, screenProps }) => {
+  const { params = {} } = navigation.state;
+  return {
+    ...getDefaultNavigationOptions(screenProps.theme),
+    title: getDatePrettyFormat(params.day, dateToString(getToday())),
+    headerLeft: (
+      <HeaderIconButton icon="close" onPress={() => navigation.goBack()} />
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 8,
+  },
+  title: {
+    fontSize: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
   },
 });
 

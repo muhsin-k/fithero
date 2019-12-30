@@ -84,6 +84,7 @@ class EditSetsNavigator extends React.Component<Props, State> {
           textColor={theme.colors.textSegmentedControl}
           style={styles.tabs}
         />
+        {/* $FlowFixMe */}
         <ContentComponent navigation={navigation} />
       </Screen>
     );

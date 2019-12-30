@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Text, withTheme } from 'react-native-paper';
 
 import i18n from '../../../utils/i18n';
@@ -50,7 +50,7 @@ const PersonalRecords = ({
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 16,
-    marginTop: 12,
+    marginTop: Platform.OS === 'ios' ? 8 : 12,
   },
   title: {
     paddingBottom: 12,

@@ -102,7 +102,18 @@ const ExerciseHistory = (props: Props) => {
         return null;
       }
       return (
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          onPress={() => {
+            const { exerciseKey, exerciseName } = props.navigation.state.params;
+            props.navigation.navigate('EditSetsModal', {
+              isModal: true,
+              day: item.date,
+              exerciseName,
+              exerciseKey,
+            });
+          }}
+        >
           <ExerciseHistoryItem
             // Deserialize so memo works
             exercise={deserializeWorkoutExercise(item)}
@@ -113,6 +124,7 @@ const ExerciseHistory = (props: Props) => {
         </Card>
       );
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [maxRepId, maxSetId, todayString]
   );
 
@@ -134,7 +146,8 @@ const ExerciseHistory = (props: Props) => {
     <VirtualizedList
       data={data}
       keyExtractor={keyExtractor}
-      contentContainerStyle={styles.container}
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
       renderItem={renderItem}
       extraData={timestamp}
       initialNumToRender={5}
@@ -168,7 +181,10 @@ const renderEmptyView = () => (
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 4,
+    marginTop: Platform.OS === 'ios' ? 8 : 0,
+  },
+  contentContainer: {
+    paddingTop: Platform.OS === 'ios' ? 0 : 4,
     paddingBottom: 8,
   },
   card: {
