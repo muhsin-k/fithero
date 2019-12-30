@@ -25,6 +25,7 @@ type Props = {
     exerciseName?: string,
     isModal?: boolean,
   }>,
+  selectedPage?: number,
 };
 
 const EditSetsScreen = (props: Props) => {
@@ -34,6 +35,7 @@ const EditSetsScreen = (props: Props) => {
     exerciseName,
     isModal,
   } = props.navigation.state.params;
+  const { selectedPage } = props;
   const defaultUnitSystem: DefaultUnitSystemType = useSelector(
     state => state.settings.defaultUnitSystem
   );
@@ -57,6 +59,7 @@ const EditSetsScreen = (props: Props) => {
         exerciseKey={exerciseKey}
         exercise={exercise}
         defaultUnitSystem={defaultUnitSystem}
+        selectedPage={selectedPage}
       />
     </Screen>
   );

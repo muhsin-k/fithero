@@ -84,6 +84,7 @@ describe('EditSetsWithControls', () => {
           exercisesCount={1}
           defaultUnitSystem="metric"
           exercise={null}
+          selectedPage={0}
         />
       );
 
@@ -127,6 +128,7 @@ describe('EditSetsWithControls', () => {
           }}
           exercisesCount={1}
           defaultUnitSystem="metric"
+          selectedPage={0}
         />
       );
       expect(wrapper.state()).toEqual({
@@ -165,6 +167,7 @@ describe('EditSetsWithControls', () => {
           exercisesCount={0}
           defaultUnitSystem="metric"
           exercise={null}
+          selectedPage={0}
         />
       );
       expect(wrapper.state()).toEqual({
@@ -192,6 +195,7 @@ describe('EditSetsWithControls', () => {
           exercisesCount={1}
           defaultUnitSystem="metric"
           exercise={null}
+          selectedPage={0}
         />
       );
       const weightControls = getInputControls(wrapper, 0);
@@ -241,6 +245,7 @@ describe('EditSetsWithControls', () => {
           exercisesCount={1}
           defaultUnitSystem="metric"
           exercise={null}
+          selectedPage={0}
         />
       );
       const weightControls = getInputControls(wrapper, 1);
@@ -275,6 +280,7 @@ describe('EditSetsWithControls', () => {
           exercisesCount={1}
           defaultUnitSystem="metric"
           exercise={null}
+          selectedPage={0}
         />
       );
       const weightControls = getInputControls(wrapper, 0);
@@ -300,6 +306,7 @@ describe('EditSetsWithControls', () => {
         exercisesCount={1}
         defaultUnitSystem="metric"
         exercise={null}
+        selectedPage={0}
       />
     );
 
@@ -397,6 +404,7 @@ describe('EditSetsWithControls', () => {
           exercisesCount={1}
           defaultUnitSystem="metric"
           exercise={customExercise || exercise}
+          selectedPage={0}
         />
       );
 

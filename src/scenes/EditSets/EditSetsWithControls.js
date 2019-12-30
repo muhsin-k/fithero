@@ -40,6 +40,7 @@ type Props = {
   defaultUnitSystem: DefaultUnitSystemType,
   exerciseKey: string,
   exercise: ?WorkoutExerciseSchemaType,
+  selectedPage?: number,
 };
 
 type State = {
@@ -118,7 +119,10 @@ export class EditSetsWithControls extends React.Component<Props, State> {
   }
 
   onBackButtonPressAndroid = () => {
-    if (this.state.selectedId) {
+    const { selectedId } = this.state;
+    const { selectedPage } = this.props;
+
+    if (selectedId && selectedPage === 0) {
       this.setState({ selectedId: '' });
       return true;
     }

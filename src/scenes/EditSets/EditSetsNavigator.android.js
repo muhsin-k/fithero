@@ -38,12 +38,12 @@ type Props = NavigationObjectType & {
 };
 
 type State = {
-  tabNames: Array<string>,
+  selectedPage: number,
 };
 
 class EditSetsNavigator extends React.Component<Props, State> {
   viewPager: typeof TabbedViewPager;
-  selectedPage = 0;
+  tabNames: Array<string>;
 
   static navigationOptions = ({
     navigation,
@@ -59,29 +59,30 @@ class EditSetsNavigator extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      tabNames: [
-        getDatePrettyFormat(
-          props.navigation.state.params.day,
-          dateToString(getToday()),
-          PixelRatio.get() < 2,
-          true
-        ),
-        i18n.t('history'),
-      ],
+      selectedPage: 0,
     };
+    this.tabNames = [
+      getDatePrettyFormat(
+        props.navigation.state.params.day,
+        dateToString(getToday()),
+        PixelRatio.get() < 2,
+        true
+      ),
+      i18n.t('history'),
+    ];
   }
 
   onBackButtonPressAndroid = () => {
-    if (this.selectedPage === 0) {
+    if (this.state.selectedPage === 0) {
       return false;
     }
-    this.selectedPage = 0;
+    this.setState({ selectedPage: 0 });
     this.viewPager.setPage(0);
     return true;
   };
 
   onPageSelected = (position: number) => {
-    this.selectedPage = position;
+    this.setState({ selectedPage: position });
   };
 
   render() {
@@ -98,7 +99,7 @@ class EditSetsNavigator extends React.Component<Props, State> {
             tabTextColor={theme.colors.secondaryText}
             tabSelectedTextColor={theme.colors.text}
             tabElevation={0}
-            tabNames={this.state.tabNames}
+            tabNames={this.tabNames}
             style={styles.tabs}
             initialPage={0}
             onPageSelected={event => {
@@ -109,12 +110,15 @@ class EditSetsNavigator extends React.Component<Props, State> {
               this.viewPager = r;
             }}
           >
-            {this.state.tabNames.map((tabName, i) => {
+            {this.tabNames.map((tabName, i) => {
               const ContentComponent = getContentComponent(i);
               return (
                 <View key={i} style={styles.content}>
                   {/* $FlowFixMe */}
-                  <ContentComponent navigation={navigation} />
+                  <ContentComponent
+                    navigation={navigation}
+                    selectedPage={this.state.selectedPage}
+                  />
                 </View>
               );
             })}
