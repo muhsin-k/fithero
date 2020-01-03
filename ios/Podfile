@@ -40,6 +40,11 @@ target 'FitHero' do
   pod 'Charts', '3.3'
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  pod 'BugsnagReactNative', :path => '../node_modules/bugsnag-react-native'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize/ios'
+  pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
+  pod 'RNShare', :path => '../node_modules/react-native-share'
 
   # TODO uncomment when using autolinking
   # use_native_modules!
