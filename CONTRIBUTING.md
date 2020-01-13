@@ -4,8 +4,8 @@
 
 * **Opening an issue**. Most likely it will be a bug you found in the app, a performance improvement or anything that can be 
 relevant for the app to work better.
-* **Reviewing an issue or a pull request**. If you believe an issue needs discussion or you have the knowledege to help reviewing a pull request. All that is very welcome.
-* **Sending a pull request**: See in the secion below.
+* **Reviewing an issue or a pull request**. If you believe an issue needs discussion or you have the knowledge to help reviewing a pull request. All that is very welcome.
+* **Sending a pull request**: See in the section below.
 * **Enjoy the app**: Let us know your thoughts and ideas. We are on [Twitter](https://twitter.com/fitheroapp) :)
 
 ## Sending a pull request
